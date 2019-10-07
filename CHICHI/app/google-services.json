@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "201776120218",
+    "firebase_url": "https://chichi-cef38.firebaseio.com",
+    "project_id": "chichi-cef38",
+    "storage_bucket": "chichi-cef38.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:201776120218:android:8f9e5ee43da647f3b6ba23",
+        "android_client_info": {
+          "package_name": "org.dementia.chichi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "201776120218-kb0f8u6fkk4gv7lnkbug4csitl5qss6a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.dementia.chichi",
+            "certificate_hash": "a93039b417b1fcb2b544b0386de6b7dc76a1d409"
+          }
+        },
+        {
+          "client_id": "201776120218-qb56lotifaqk91dceamll21h5bi1pulg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDu1KboxFdbP2RS2UnEJFoouj0dOPRPYNw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "201776120218-qb56lotifaqk91dceamll21h5bi1pulg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
