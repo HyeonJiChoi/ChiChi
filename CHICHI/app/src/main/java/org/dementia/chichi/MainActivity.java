@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
 
         FirestoreManagement firestoreManagement = new FirestoreManagement();
         firestoreManagement.read_data("최현지chj159258357");
-        System.out.println("Main!!!!!!" + firestoreManagement.age);
 
 
     }
