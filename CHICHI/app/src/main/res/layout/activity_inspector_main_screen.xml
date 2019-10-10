@@ -20,7 +20,7 @@
 
     <TableLayout
         android:id="@+id/inspectorMainScreenTableLayout"
-        android:layout_width="330dp"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:background="#B3FFFFFF"
         android:layout_below="@id/inspectorMainScreenProfile"
@@ -89,7 +89,7 @@
     <View
         android:layout_below="@+id/inspectorMainScreenTableLayout"
         android:layout_alignLeft="@+id/inspectorMainScreenTableLayout"
-        android:layout_width="323dp"
+        android:layout_width="345dp"
         android:layout_marginLeft="5dp"
         android:layout_height="7dp"
         android:background="@drawable/dropshadow" />
@@ -102,11 +102,44 @@
         android:layout_marginTop="70dp"
         android:src="@drawable/initprofile" />
 
-    <Button
-        android:id="@+id/inspectorMainScreenTestButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Goto Test" />
+    <TableLayout
+        android:layout_marginTop="15dp"
+        android:id="@+id/inspectorMainScreenView1"
+        android:layout_below="@+id/inspectorMainScreenTableLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_width="360dp"
+        android:layout_height="150dp"
+        android:background="@drawable/main_view_background"
+        android:stretchColumns="1">
+        <TableRow>
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Today"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+            <Button
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/inspectorMainScreenTestButton"
+                android:layout_width="50dp"
+                android:layout_height="130dp"
+                android:gravity="center"
+                android:text="Goto Test"
+                android:layout_centerInParent="true" />
+        </TableRow>
+
+    </TableLayout>
+
+    <View
+        android:layout_width="360dp"
+        android:layout_height="270dp"
+        android:layout_below="@+id/inspectorMainScreenView1"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/main_view_background" />
 
 </RelativeLayout>
