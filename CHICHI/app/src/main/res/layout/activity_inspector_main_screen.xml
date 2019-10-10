@@ -10,65 +10,89 @@
         android:id="@+id/toolbar_actionbar"
         layout="@layout/toolbar_main"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="280dp" />
+    <View
+        android:layout_below="@+id/toolbar_actionbar"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_height="7dp"
+        android:background="@drawable/dropshadow" />
 
     <TableLayout
         android:id="@+id/inspectorMainScreenTableLayout"
-        android:layout_width="wrap_content"
+        android:layout_width="330dp"
         android:layout_height="wrap_content"
+        android:background="#B3FFFFFF"
         android:layout_below="@id/inspectorMainScreenProfile"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="-40dp"
-        android:background="@color/common_google_signin_btn_text_dark_default"
-        android:paddingTop="50dp">
+        android:layout_marginTop="-30dp"
+        android:paddingTop="40dp"
+        android:paddingBottom="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
 
-        <TableRow>
+        <TableRow
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="검사자 이름"
+                android:textSize="20dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="검사자 이름"
-                android:textSize="25dp" />
+                android:layout_weight="2.5"
+                android:text="~~~"
+                android:textSize="20dp" />
+        </TableRow>
+        <TableRow
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="검사자 집"
+                android:textSize="20dp"
+                android:layout_weight="1"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="~~~"
-                android:textSize="25dp" />
+                android:textSize="20dp"
+                android:layout_weight="2.5"/>
         </TableRow>
-
         <TableRow>
 
             <TextView
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="검사자 이름"
-                android:textSize="25dp" />
+                android:text="보호자 전화번호"
+                android:textSize="20dp"
+                android:layout_weight="1"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="~~~"
-                android:textSize="25dp" />
+                android:textSize="20dp"
+                android:layout_weight="2.5"/>
         </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="검사자 이름"
-                android:textSize="25dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="~~~"
-                android:textSize="25dp" />
-        </TableRow>
-
 
     </TableLayout>
+    <View
+        android:layout_below="@+id/inspectorMainScreenTableLayout"
+        android:layout_alignLeft="@+id/inspectorMainScreenTableLayout"
+        android:layout_width="323dp"
+        android:layout_marginLeft="5dp"
+        android:layout_height="7dp"
+        android:background="@drawable/dropshadow" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/inspectorMainScreenProfile"
