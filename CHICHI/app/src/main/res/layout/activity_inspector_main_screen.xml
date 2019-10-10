@@ -1,23 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     tools:context="org.dementia.chichi.InspectorMainScreen">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:src="@drawable/initprofile"
-        android:id="@+id/inspectorMainScreenProfile"
-        android:layout_width="100dp"
-        android:gravity="center"
-        android:layout_height="100dp"
-        />
-    <TextView
+    <include
+        android:id="@+id/toolbar_actionbar"
+        layout="@layout/toolbar_main"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+    <TableLayout
+        android:id="@+id/inspectorMainScreenTableLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="InspectorMainScreen" />
+        android:layout_below="@id/inspectorMainScreenProfile"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-40dp"
+        android:background="@color/common_google_signin_btn_text_dark_default"
+        android:paddingTop="50dp">
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="검사자 이름"
+                android:textSize="25dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="~~~"
+                android:textSize="25dp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="검사자 이름"
+                android:textSize="25dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="~~~"
+                android:textSize="25dp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="검사자 이름"
+                android:textSize="25dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="~~~"
+                android:textSize="25dp" />
+        </TableRow>
+
+
+    </TableLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/inspectorMainScreenProfile"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:src="@drawable/initprofile" />
+
     <Button
         android:id="@+id/inspectorMainScreenTestButton"
         android:layout_width="wrap_content"
@@ -25,4 +85,4 @@
         android:gravity="center"
         android:text="Goto Test" />
 
-</LinearLayout>
+</RelativeLayout>

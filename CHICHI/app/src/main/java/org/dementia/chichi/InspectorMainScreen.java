@@ -28,7 +28,7 @@ public class InspectorMainScreen extends AppCompatActivity {
         setContentView(R.layout.activity_inspector_main_screen);
         riversRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://chichi-cef38.appspot.com");;
         testButton = findViewById(R.id.inspectorMainScreenTestButton);
-        inspectorMainScreenProfile = findViewById(R.id.inspectorMainScreenProfile);
+        inspectorMainScreenProfile = findViewById(R.id.inspectorMainScreenProfile);;
 
         Glide.with(this)
                 .using(new FirebaseImageLoader())

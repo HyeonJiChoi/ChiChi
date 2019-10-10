@@ -1,6 +1,9 @@
 package org.dementia.chichi;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,10 +26,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        //firestoreManagement.add("최현수","090909",19961015);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
+        setSupportActionBar(toolbar);
 
         FirestoreManagement firestoreManagement = new FirestoreManagement();
+        //firestoreManagement.add("최현지","chj159258357",22, "경기도 김포시 사우동", "010-4090-9585");
         firestoreManagement.read_data("최현지chj159258357");
+
 
 
     }
