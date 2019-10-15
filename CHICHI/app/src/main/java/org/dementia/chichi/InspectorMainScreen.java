@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.storage.FirebaseStorage;
@@ -19,6 +20,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class InspectorMainScreen extends AppCompatActivity {
     Button testButton;
+    TextView name, home, number;
     CircleImageView inspectorMainScreenProfile;
     StorageReference riversRef;
 
@@ -28,7 +30,14 @@ public class InspectorMainScreen extends AppCompatActivity {
         setContentView(R.layout.activity_inspector_main_screen);
         riversRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://chichi-cef38.appspot.com");;
         testButton = findViewById(R.id.inspectorMainScreenTestButton);
-        inspectorMainScreenProfile = findViewById(R.id.inspectorMainScreenProfile);;
+        inspectorMainScreenProfile = findViewById(R.id.inspectorMainScreenProfile);
+        name = findViewById(R.id.inspectorMainScreenTextViewName);
+        home = findViewById(R.id.inspectorMainScreenTextViewHome);
+        number = findViewById(R.id.inspectorMainScreenTextViewNumber);
+
+        name.setText(MainActivity.name);
+        home.setText(MainActivity.firestoreManagement.user.get("home").toString());
+        number.setText(MainActivity.firestoreManagement.user.get("number").toString());
 
         Glide.with(this)
                 .using(new FirebaseImageLoader())

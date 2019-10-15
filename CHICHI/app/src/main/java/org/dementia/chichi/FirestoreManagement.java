@@ -15,8 +15,8 @@ import java.util.Map;
 import static java.sql.DriverManager.println;
 
 public class FirestoreManagement {
-    String age;
     FirebaseFirestore db;
+    public Map<String, Object> user = new HashMap<>();
 
     public FirestoreManagement() {
         db = FirebaseFirestore.getInstance();
@@ -24,15 +24,15 @@ public class FirestoreManagement {
 
     public void add(String name, String password, int age, String home, String number) {
         // Create a new user with a first and last name
-        Map<String, Object> user = new HashMap<>();
-        user.put("age", age);
-        user.put("home", home);
-        user.put("number", number);
+        Map<String, Object> newUser = new HashMap<>();
+        newUser.put("age", age);
+        newUser.put("home", home);
+        newUser.put("number", number);
 
 // Add a new document with a generated ID
         db.collection("Inspector")
                 .document(name + password)
-                .set(user);
+                .set(newUser);
     }
 
     public void read_data(String name) {
@@ -45,7 +45,7 @@ public class FirestoreManagement {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
-                                System.out.println(document.getData());
+                                user = document.getData();
                             } else {
                                 System.out.println("sorry1");
                             }
