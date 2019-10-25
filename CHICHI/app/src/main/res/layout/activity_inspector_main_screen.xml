@@ -7,16 +7,23 @@
     tools:context="org.dementia.chichi.InspectorMainScreen">
 
     <include
-        android:id="@+id/toolbar_actionbar"
+        android:id="@+id/toobar_include"
         layout="@layout/toolbar_main"
         android:layout_width="match_parent"
-        android:layout_height="270dp" />
+        android:layout_height="wrap_content" />
     <View
-        android:layout_below="@+id/toolbar_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/gradient"
+        android:layout_below="@id/toobar_include"
+        android:id="@+id/backgroundView"
+        />
+    <View
         android:layout_width="match_parent"
         android:layout_marginLeft="5dp"
         android:layout_height="7dp"
-        android:background="@drawable/dropshadow" />
+        android:background="@drawable/dropshadow"
+        android:layout_below="@+id/backgroundView"/>
 
     <TableLayout
         android:id="@+id/inspectorMainScreenTableLayout"

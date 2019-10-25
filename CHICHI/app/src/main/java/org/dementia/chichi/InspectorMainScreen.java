@@ -28,6 +28,7 @@ public class InspectorMainScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inspector_main_screen);
+        setActionbar();
         riversRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://chichi-cef38.appspot.com");;
         testButton = findViewById(R.id.inspectorMainScreenTestButton);
         inspectorMainScreenProfile = findViewById(R.id.inspectorMainScreenProfile);
@@ -51,5 +52,10 @@ public class InspectorMainScreen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    public void setActionbar() {
+        //layout을 가지고 와서 actionbar에 포팅을 시킵니다.
+        Toolbar tb = (Toolbar) findViewById(R.id.toolbar) ;
+        setSupportActionBar(tb) ;
     }
 }
