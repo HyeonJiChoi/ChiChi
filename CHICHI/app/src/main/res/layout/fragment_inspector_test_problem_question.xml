@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp">
+
+    <TextView
+        android:id="@+id/fragmentProblemQuestionText"
+        android:layout_width="350dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:background="@color/common_google_signin_btn_text_dark_default"
+        android:gravity="center"
+        android:text="당신의 이름은 무엇입니까?"
+        android:textSize="25dp" />
+
+    <View
+        android:layout_width="350dp"
+        android:layout_height="7dp"
+        android:layout_below="@+id/fragmentProblemQuestionText"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/dropshadow" />
+
+    <TextView
+        android:id="@+id/fragmentProblemQuestionQ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="50dp"
+        android:text="Q"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="16dp"
+        android:textColor="#A20202"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:text="1"
+        android:layout_alignBaseline="@+id/fragmentProblemQuestionQ"
+        android:layout_marginLeft="2dp"
+        android:layout_toRightOf="@+id/fragmentProblemQuestionQ"
+        android:textColor="#A20202"
+        android:textStyle="bold"/>
+
+</RelativeLayout>

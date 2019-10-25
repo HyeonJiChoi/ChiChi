@@ -3,13 +3,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <include
-        android:id="@+id/toolbar_actionbar"
+        android:id="@+id/test_toolbar_include"
         layout="@layout/toolbar_main"
         android:layout_width="match_parent"
-        android:layout_height="200dp"/>
-    <TextView
-        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/gradient"
+        android:layout_below="@id/test_toolbar_include"
+        android:id="@+id/test_backgroundView"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_height="7dp"
+        android:background="@drawable/dropshadow"
+        android:layout_below="@+id/test_backgroundView"/>
+    <fragment
+        android:id="@+id/inpectorTestScreenfragment1"
+        android:name="org.dementia.chichi.InspectorTestProblemQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/test_toolbar_include"/>
+    <fragment
+        android:id="@+id/inpectorTestScreenfragment2"
+        android:name="org.dementia.chichi.InspectorTestProblemList"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TestScreen" />
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/inpectorTestScreenfragment1"/>
 
 </RelativeLayout>

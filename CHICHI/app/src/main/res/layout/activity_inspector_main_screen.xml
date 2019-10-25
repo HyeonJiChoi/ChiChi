@@ -13,7 +13,7 @@
         android:layout_height="wrap_content" />
     <View
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="220dp"
         android:background="@drawable/gradient"
         android:layout_below="@id/toobar_include"
         android:id="@+id/backgroundView"

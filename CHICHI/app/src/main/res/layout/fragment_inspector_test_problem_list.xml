@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="330dp"
+        android:layout_height="100dp"
+        android:id="@+id/TestProblemListSmall1"
+        android:background="@drawable/othershadow"
+        android:gravity="center"
+        android:text="Hello"
+        android:textSize="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:textStyle="bold" />
+    <ImageView
+        android:layout_marginTop="15dp"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:src="@drawable/smallquiz1" />
+    <TextView
+        android:layout_below="@+id/TestProblemListSmall1"
+        android:layout_width="330dp"
+        android:layout_height="100dp"
+        android:id="@+id/TestProblemListSmall2"
+        android:background="@drawable/othershadow"
+        android:gravity="center"
+        android:text="Hello"
+        android:textSize="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:textStyle="bold" />
+    <ImageView
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/TestProblemListSmall1"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:src="@drawable/smallquiz2" />
+    <TextView
+        android:layout_below="@+id/TestProblemListSmall2"
+        android:layout_width="330dp"
+        android:layout_height="100dp"
+        android:id="@+id/TestProblemListSmall3"
+        android:background="@drawable/othershadow"
+        android:gravity="center"
+        android:text="Hello"
+        android:textSize="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:textStyle="bold" />
+    <ImageView
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/TestProblemListSmall2"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:src="@drawable/smallquiz3" />
+</RelativeLayout>
