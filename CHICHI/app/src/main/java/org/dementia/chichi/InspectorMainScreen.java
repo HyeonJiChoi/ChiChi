@@ -29,7 +29,7 @@ public class InspectorMainScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inspector_main_screen);
         setActionbar();
-        riversRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://chichi-cef38.appspot.com");;
+        riversRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://chichi-cef38.appspot.com");
         testButton = findViewById(R.id.inspectorMainScreenTestButton);
         inspectorMainScreenProfile = findViewById(R.id.inspectorMainScreenProfile);
         name = findViewById(R.id.inspectorMainScreenTextViewName);
