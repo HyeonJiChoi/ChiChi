@@ -3,56 +3,67 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <Button
         android:layout_width="330dp"
         android:layout_height="100dp"
         android:id="@+id/TestProblemListSmall1"
-        android:background="@drawable/othershadow"
+        android:background="@drawable/select_button"
         android:gravity="center"
         android:text="Hello"
         android:textSize="30dp"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:stateListAnimator="@null"/>
     <ImageView
         android:layout_marginTop="15dp"
         android:layout_width="100dp"
         android:layout_height="80dp"
         android:src="@drawable/smallquiz1" />
-    <TextView
+    <Button
         android:layout_below="@+id/TestProblemListSmall1"
         android:layout_width="330dp"
         android:layout_height="100dp"
         android:id="@+id/TestProblemListSmall2"
-        android:background="@drawable/othershadow"
+        android:background="@drawable/select_button"
         android:gravity="center"
         android:text="Hello"
         android:textSize="30dp"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:stateListAnimator="@null"/>
     <ImageView
         android:layout_marginTop="15dp"
         android:layout_below="@+id/TestProblemListSmall1"
         android:layout_width="100dp"
         android:layout_height="80dp"
         android:src="@drawable/smallquiz2" />
-    <TextView
+    <Button
         android:layout_below="@+id/TestProblemListSmall2"
         android:layout_width="330dp"
         android:layout_height="100dp"
         android:id="@+id/TestProblemListSmall3"
-        android:background="@drawable/othershadow"
+        android:background="@drawable/select_button"
         android:gravity="center"
         android:text="Hello"
         android:textSize="30dp"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:stateListAnimator="@null"/>
     <ImageView
         android:layout_marginTop="15dp"
         android:layout_below="@+id/TestProblemListSmall2"
         android:layout_width="100dp"
         android:layout_height="80dp"
         android:src="@drawable/smallquiz3" />
+
+    <View
+        android:id="@+id/test_backgroundView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/TestProblemListSmall3"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/gradient" />
 </RelativeLayout>

@@ -20,18 +20,23 @@
         android:layout_height="7dp"
         android:background="@drawable/dropshadow"
         android:layout_below="@+id/test_backgroundView"/>
-    <fragment
-        android:id="@+id/inpectorTestScreenfragment1"
-        android:name="org.dementia.chichi.InspectorTestProblemQuestion"
+    <include
+        android:id="@+id/inpectorTestProblemQuestion"
+        layout="@layout/fragment_inspector_test_problem_question"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_below="@+id/test_toolbar_include"/>
-    <fragment
-        android:id="@+id/inpectorTestScreenfragment2"
-        android:name="org.dementia.chichi.InspectorTestProblemList"
+    <FrameLayout
+        android:id="@+id/inpectorTestProblemList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_below="@+id/inpectorTestScreenfragment1"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/inpectorTestProblemQuestion">
+    <fragment
+        android:id="@+id/inpectorTestProblemList_first"
+        android:name="org.dementia.chichi.InspectorTestProblemList3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true" />
+    </FrameLayout>
 
 </RelativeLayout>
