@@ -33,7 +33,7 @@
         android:layout_below="@+id/inpectorTestProblemQuestion">
     <fragment
         android:id="@+id/inpectorTestProblemList_first"
-        android:name="org.dementia.chichi.InspectorTestProblemList3"
+        android:name="org.dementia.chichi.InspectorBlankFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true" />

@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         firestoreManagement = new FirestoreManagement();
-        //firestoreManagement.add("최현지","chj159258357",22, "경기도 김포시 사우동", "010-4090-9585");
-        firestoreManagement.read_data("최현지chj159258357");
 
     }
 }

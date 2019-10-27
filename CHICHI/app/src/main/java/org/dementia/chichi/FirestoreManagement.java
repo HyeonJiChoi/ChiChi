@@ -11,15 +11,18 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import static java.sql.DriverManager.println;
 
 public class FirestoreManagement {
     FirebaseFirestore db;
-    public Map<String, Object> user = new HashMap<>();
+    public Map<String, Object> user;
+    public Set<String> todayProblems;
 
     public FirestoreManagement() {
         db = FirebaseFirestore.getInstance();
+        read_user("최현지chj159258357");
     }
 
     public void add(String name, String password, int age, String home, String number) {
@@ -35,7 +38,7 @@ public class FirestoreManagement {
                 .set(newUser);
     }
 
-    public void read_data(String name) {
+    public void read_user(String name) {
         db.collection("Inspector")
                 .document(name)
                 .get()
@@ -46,6 +49,7 @@ public class FirestoreManagement {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
                                 user = document.getData();
+                                read_day_problems(user.get("day").toString());
                             } else {
                                 System.out.println("sorry1");
                             }
@@ -54,6 +58,27 @@ public class FirestoreManagement {
                         }
                     }
                 });
+    }
+    public void read_day_problems(String day){
+        db.collection("PerdayProblem")
+                .document(day)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                Map<String, Object> problems = document.getData();
+                                todayProblems = problems.keySet();
 
+                            } else {
+                                System.out.println("sorry1");
+                            }
+                        } else {
+                            System.out.println("sorry2");
+                        }
+                    }
+                });
     }
 }
