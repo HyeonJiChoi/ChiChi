@@ -11,6 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".InspectorTestScreen" />
         <activity android:name=".InspectorMainScreen" />
+        <activity android:name =".InspectorSurvey1" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

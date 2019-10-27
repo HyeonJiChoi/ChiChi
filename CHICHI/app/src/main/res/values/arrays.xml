@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="year">
+        <item>1930</item>
+        <item>1931</item>
+        <item>1932</item>
+        <item>1933</item>
+        <item>1934</item>
+        <item>1935</item>
+        <item>1936</item>
+        <item>1937</item>
+        <item>1938</item>
+        <item>1939</item>
+        <item>1940</item>
+        <item>1941</item>
+        <item>1942</item>
+        <item>1943</item>
+        <item>1944</item>
+        <item>1945</item>
+        <item>1946</item>
+        <item>1947</item>
+        <item>1948</item>
+        <item>1949</item>
+        <item>1950</item>
+
+
+
+    </string-array>
+</resources>
