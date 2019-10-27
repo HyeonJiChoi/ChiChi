@@ -2,7 +2,9 @@
     <string name="app_name">CHICHI</string>
     <string name="sample1">1. 검사자 분의 성별이 어떻게 되십니까? </string>
     <string name="sample2">2. 검사자 분의 성함이 어떻게 되십니까? </string>
-    <string name="sample3">3. 검사자 분의 생년원일이 어떻게 되십니까? </string>
+    <string name="sample3">3. 검사자 분의 생년월일이 어떻게 되십니까? </string>
+    <string name="sample4">4. 검사자 분의 핸드폰번호가 어떻게 되십니까? </string>
+    <string name="sample5">5. 검사자 분의 주소가 어떻게 되십니까? </string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
