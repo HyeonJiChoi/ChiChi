@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@drawable/gradient"
+    android:layout_height="match_parent">
+
+<TableLayout
+    android:layout_width="match_parent"
+    android:layout_marginTop="80dp"
+    android:layout_marginBottom="80dp"
+    android:layout_height="match_parent"
+    android:id="@+id/inspectorSurveyTableLayout"
+    android:background="#B3FFFFFF"
+>
+    <TableRow
+        android:paddingBottom="10dp">
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="@string/sample1"
+            android:layout_gravity="center"
+            android:textSize="17dp"
+            android:textStyle="bold" />
+    </TableRow>
+    <TableRow
+        android:paddingBottom="10dp">
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/btn1"
+            android:text="남성"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            ></Button>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/btn2"
+            android:text="여성"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            ></Button>
+    </TableRow>
+    <TableRow
+        android:paddingBottom="10dp">
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:text="@string/sample2"
+            android:textStyle="bold"
+            android:textSize="17dp">
+        </TextView>
+    </TableRow>
+    <TableRow
+        android:paddingBottom="10dp">
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:hint="이름을 입력하세요."
+            android:textStyle="bold"></EditText>
+    </TableRow>
+
+    <TableRow
+        android:paddingBottom="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:id="@+id/textView3"
+            android:layout_gravity="bottom"
+            android:text="@string/sample3"
+            android:textStyle="bold"
+            android:textSize="17dp"
+            />
+    </TableRow>
+    <TableRow
+        android:paddingBottom="10dp">
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            >
+        </Spinner>
+    </TableRow>
+        <Button
+            android:layout_below="@id/textView3"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentRight="true"
+            android:id="@+id/next"
+            android:text="다음"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            />
+</TableLayout>
+
+
+</RelativeLayout>

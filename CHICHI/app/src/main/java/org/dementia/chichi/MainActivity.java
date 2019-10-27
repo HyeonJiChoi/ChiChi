@@ -25,11 +25,10 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), InspectorMainScreen.class);
+                Intent intent = new Intent(getApplicationContext(), InspectorSurvey1.class);
                 startActivity(intent);
             }
         });
-
 
         firestoreManagement = new FirestoreManagement();
 
