@@ -27,7 +27,7 @@ public class InspectorTestProblemList2 extends Fragment {
                 if(problem_string.getInt("answer")==1){
                     activity.set_score(true);
                 }
-                //activity.onChangeFragment();
+                activity.onChangeFragment();
             }
         });
         TestProblemListbig2.setOnClickListener(new View.OnClickListener() {
@@ -36,7 +36,7 @@ public class InspectorTestProblemList2 extends Fragment {
                 if(problem_string.getInt("answer")==2){
                     activity.set_score(true);
                 }
-               // activity.onChangeFragment();
+               activity.onChangeFragment();
             }
         });
         // Inflate the layout for this fragment

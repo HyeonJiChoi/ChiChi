@@ -50,7 +50,7 @@ public class InspectorTestScreen extends AppCompatActivity {
     }
 
     public void onChangeFragment() {
-        if (testNumber < 2) {
+        if (testNumber < 3) {
             nextProblem = Integer.parseInt(problems[testNumber].toString());
             final int answer;
             String todayDate = getDateString();
