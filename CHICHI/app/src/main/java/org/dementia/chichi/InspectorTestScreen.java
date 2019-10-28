@@ -31,6 +31,7 @@ public class InspectorTestScreen extends AppCompatActivity {
     InspectorTestProblemList3 inspectorTestProblemList3 = new InspectorTestProblemList3();
     InspectorTestProblemList2 inspectorTestProblemList2 = new InspectorTestProblemList2();
     InspectorTestProblemPicture inspectorTestProblemPicture = new InspectorTestProblemPicture();
+    InspectorTestProblemProfile inspectorTestProblemProfile = new InspectorTestProblemProfile();
     private int score = 0;
 
     @Override
@@ -50,7 +51,7 @@ public class InspectorTestScreen extends AppCompatActivity {
     }
 
     public void onChangeFragment() {
-        if (testNumber < 3) {
+        if (testNumber < problems.length) {
             nextProblem = Integer.parseInt(problems[testNumber].toString());
             final int answer;
             String todayDate = getDateString();
@@ -72,7 +73,7 @@ public class InspectorTestScreen extends AppCompatActivity {
                             Dates[i]=wordDate[0] + "년 "+wordDate[1]+"월";;
                         }
                         else{
-                            Dates[i] = (Integer.parseInt(wordDate[0])+(int)(Math.random()*10)%5) + "년 "+(Integer.parseInt(wordDate[1])+(int)(Math.random()*10)%5)%12+1+"월";
+                            Dates[i] = (Integer.parseInt(wordDate[0])+(int)(Math.random()*10)%5) + "년 "+((Integer.parseInt(wordDate[1])+(int)(Math.random()*10)%5)%12+1)+"월";
                         }
                     }
 
@@ -150,6 +151,15 @@ public class InspectorTestScreen extends AppCompatActivity {
                     };
                     timer.schedule(timerTask,2000);
                     break;
+                case 3: //프로필사진 맞추기
+                    fragmentProblemQuestionText.setText("누가 당신입니까?");
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    answer = (int)(Math.random()*10)%2;
+                    String userId = "최현지chj159258357";
+                    String otherId = "최현수090909";
+
+                    show_profileProblem(userId, otherId, answer);
+
             }
             testNumber++;
         }
@@ -187,6 +197,24 @@ public class InspectorTestScreen extends AppCompatActivity {
                     .add(R.id.inpectorTestProblemList, inspectorTestProblemList2);
         } else {
             fragmentTransaction.replace(R.id.inpectorTestProblemList, inspectorTestProblemList2);
+        }
+        fragmentTransaction.commit();
+    }
+    public void show_profileProblem(String str1, String str2, int answer){
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        //프래그먼트에 전달해줄 거 정해주기
+        Bundle newBundle = new Bundle();
+        newBundle.putString("1", str1);
+        newBundle.putString("2", str2);
+        newBundle.putInt("answer",answer+1);
+        inspectorTestProblemProfile.setArguments(newBundle);
+        inspectorTestProblemProfile.activity = this;
+
+        if (testNumber == 0) {
+            fragmentTransaction.hide(currentFragment)
+                    .add(R.id.inpectorTestProblemList, inspectorTestProblemProfile);
+        } else {
+            fragmentTransaction.replace(R.id.inpectorTestProblemList, inspectorTestProblemProfile);
         }
         fragmentTransaction.commit();
     }
