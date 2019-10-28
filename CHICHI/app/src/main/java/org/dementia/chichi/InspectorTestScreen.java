@@ -53,14 +53,14 @@ public class InspectorTestScreen extends AppCompatActivity {
         if (testNumber < 2) {
             nextProblem = Integer.parseInt(problems[testNumber].toString());
             final int answer;
+            String todayDate = getDateString();
+            String[] wordDate = todayDate.split("-");
             //문제들을 순서대로 갖고와서 시험 보는거~
             switch (nextProblem) {
                 case 0: //지금 연도 월
                     fragmentProblemQuestionText.setText("지금 연도와 월은\n언제인가요?");
                     fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
 
-                    String todayDate = getDateString();
-                    String[] wordDate = todayDate.split("-");
                     String[] Dates = new String[3];
 
                     //답의 위치를 랜덤으로 구하기
@@ -79,14 +79,39 @@ public class InspectorTestScreen extends AppCompatActivity {
                     show_3problem(Dates[0], Dates[1], Dates[2],answer);
 
                     break;
-                case 1: // 기억 회상 (그림)
+                case 1: //계절알기
+                    fragmentProblemQuestionText.setText("지금 계절은 무엇인가요?");
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+
+                    answer = (int)(Math.random()*10)%2;
+
+                    String now_seasons = getSeason(Integer.parseInt(wordDate[1]));
+                    String other_seasons = getSeason((int)(Math.random()*10)%12);
+                    //안겹치게 넣기
+                    while(now_seasons.equals(other_seasons))
+                        other_seasons = getSeason((int)(Math.random()*10)%12);
+
+                    String[] seasons = new String[2];
+                    //날짜를 랜덤으로 구하기
+                    for(int i=0; i<2; i++){
+                        if(i==answer){
+                            seasons[i]=now_seasons;
+                        }
+                        else{
+                            seasons[i]=other_seasons;
+                        }
+                    }
+                    show_2problem(seasons[0], seasons[1], answer);
+
+                    break;
+
+                case 2: // 기억 회상 (그림)
                     fragmentProblemQuestionText.setText("다음 그림을 보고\n무엇인지 맞춰주세요");
                     fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     answer = (int)(Math.random()*10)%2;
                     //답의 위치를 랜덤으로 구하기
                     int select_picture_number = (int)(Math.random()*10)%MainActivity.firestoreManagement.picture_number.size();
-                    System.out.println(select_picture_number);
                     int other_picture_number = (int)(Math.random()*10)%MainActivity.firestoreManagement.picture_number.size();
                     //겹치지 않게 하기
                     while(other_picture_number==select_picture_number){
@@ -178,6 +203,12 @@ public class InspectorTestScreen extends AppCompatActivity {
         String str_date = df.format(new Date());
 
         return str_date;
+    }
+    public String getSeason(int month){
+        if(month>=3 && month<=5) return "봄";
+        else if (month>=6 && month<=8) return "여름";
+        else if (month>=9 && month<=11) return "가을";
+        else return "겨울";
     }
     public void set_score(boolean collected){
         if(collected) score+=1;
