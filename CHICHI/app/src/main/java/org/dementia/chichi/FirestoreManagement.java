@@ -19,10 +19,12 @@ public class FirestoreManagement {
     FirebaseFirestore db;
     public Map<String, Object> user;
     public Set<String> todayProblems;
+    public Map<String, Object> picture_number;
 
     public FirestoreManagement() {
         db = FirebaseFirestore.getInstance();
         read_user("최현지chj159258357");
+        read_orientation_picture();
     }
 
     public void add(String name, String password, int age, String home, String number) {
@@ -71,6 +73,27 @@ public class FirestoreManagement {
                             if (document.exists()) {
                                 Map<String, Object> problems = document.getData();
                                 todayProblems = problems.keySet();
+
+                            } else {
+                                System.out.println("sorry1");
+                            }
+                        } else {
+                            System.out.println("sorry2");
+                        }
+                    }
+                });
+    }
+    public void read_orientation_picture(){
+        db.collection("Problem")
+                .document("Orientation_picture")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                picture_number = document.getData();;
 
                             } else {
                                 System.out.println("sorry1");

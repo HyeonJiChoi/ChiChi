@@ -36,9 +36,10 @@ public class InspectorTestProblemPicture extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        Bundle newBundle = getArguments();
         Glide.with(getActivity())
                 .using(new FirebaseImageLoader())
-                .load(riversRef.child("Orientation_picture/"+"0"+".png"))
+                .load(riversRef.child("Orientation_picture/"+newBundle.get("picture_number").toString()+".png"))
                 .into(inspectorTestProblemPicture);
     }
 }
