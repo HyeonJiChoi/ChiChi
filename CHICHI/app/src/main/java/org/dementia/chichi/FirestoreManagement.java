@@ -23,13 +23,14 @@ public class FirestoreManagement {
     public Map<String, Object> user;
     public Set<String> todayProblems;
     public Map<String, Object> picture_number;
+    public ArrayList<String> userAddresses = new ArrayList<String>();
     public ArrayList<String> userIds = new ArrayList<String>();
 
     public FirestoreManagement() {
         db = FirebaseFirestore.getInstance();
         read_user(MainActivity.name+"_"+MainActivity.password);
         read_orientation_picture();
-        read_users_count();
+        read_users();
     }
 
     public void add(String name, String password, int age, String home, String number) {
@@ -113,7 +114,7 @@ public class FirestoreManagement {
                 });
     }
 
-    public void read_users_count() {
+    public void read_users() {
         db.collection("Inspector")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -122,6 +123,7 @@ public class FirestoreManagement {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 userIds.add(document.getId());
+                                userAddresses.add(document.getData().get("home").toString());
                             }
                         } else {
                             System.out.println("Inspector_sorry1");

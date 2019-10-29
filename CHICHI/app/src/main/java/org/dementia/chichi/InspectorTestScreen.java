@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
@@ -128,7 +129,7 @@ public class InspectorTestScreen extends AppCompatActivity {
                         fragmentTransaction.replace(R.id.inpectorTestProblemList, inspectorTestProblemPicture);
                     }
                     fragmentTransaction.commit();
-                    currentFragment=3;
+                    currentFragment = 3;
 
 
                     final String[] objects = new String[2];
@@ -236,7 +237,7 @@ public class InspectorTestScreen extends AppCompatActivity {
                         if (i == answer) {
                             calculateNumbers[i] = Integer.toString(answer_number);
                         } else if (i < answer) {
-                            calculateNumbers[i] = Integer.toString(answer_number - (int) ((Math.random() * 10) % 5) + 5);
+                            calculateNumbers[i] = Integer.toString(answer_number - (int) ((Math.random() * 10) % 5) - 5);
                         } else if (i > answer) {
                             calculateNumbers[i] = Integer.toString(answer_number + (int) ((Math.random() * 10) % 5) + 5);
                         }
@@ -244,6 +245,63 @@ public class InspectorTestScreen extends AppCompatActivity {
 
                     show_3problem(calculateNumbers[0], calculateNumbers[1], calculateNumbers[2], answer);
                     break;
+                case 7: //결혼여부
+                    fragmentProblemQuestionText.setText("당신은 결혼 하셨습니까?");
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    boolean merried = Boolean.getBoolean(MainActivity.firestoreManagement.user.get("married").toString());
+                    if(merried==true) answer=0;
+                    else answer=1;
+                    show_2problem("O", "X", answer);
+                    break;
+                case 8: //집주소 문제
+                    fragmentProblemQuestionText.setText("당신의 집주소는 무엇입니까?");
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+
+                    answer = (int) (Math.random() * 10) % 3;
+                    String address = MainActivity.firestoreManagement.user.get("home").toString();
+                    String[] homes = new String[3];
+
+                    //날짜를 랜덤으로 구하기
+                    for (int i = 0; i < 3; i++) {
+                        if (i == answer) {
+                            homes[i] = address;
+                        } else {
+                            String newAddress = MainActivity.firestoreManagement.userAddresses.get((int)(Math.random()*10)
+                                    %MainActivity.firestoreManagement.userIds.size());
+                            while(Arrays.asList(homes).contains(newAddress) || newAddress.equals(address))
+                                newAddress = MainActivity.firestoreManagement.userAddresses.get((int)(Math.random()*10)
+                                        %MainActivity.firestoreManagement.userIds.size());
+                            homes[i] = newAddress;
+                        }
+                    }
+
+                    show_3problem(homes[0], homes[1], homes[2], answer);
+                    break;
+                case 9: //자녀수 문제
+                    fragmentProblemQuestionText.setText("당신은 몇명의 \n자녀가 있습니까?");
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+
+                    if(MainActivity.firestoreManagement.user.containsKey("child")){
+                        answer = (int) (Math.random() * 10) % 3;
+                        String[] child = new String[3];
+
+                        //값을 랜덤으로 구하기
+                        for (int i = 0; i < 3; i++) {
+                            if (i == answer) {
+                                child[i] = MainActivity.firestoreManagement.user.get("child").toString();
+                            } else if (i < answer) {
+                                child[i] = Integer.toString(Math.abs(Integer.parseInt(MainActivity.firestoreManagement.user.get("child").toString())
+                                        - (int) ((Math.random() * 10) % 5) - 1));
+                            } else if (i > answer) {
+                                child[i] = Integer.toString(Integer.parseInt(MainActivity.firestoreManagement.user.get("child").toString())
+                                        + (int) ((Math.random() * 10) % 5) + 1);
+                            }
+                        }
+
+                        show_3problem(child[0], child[1], child[2], answer);
+                        break;
+                    }
+
 
 
             }
@@ -308,6 +366,8 @@ public class InspectorTestScreen extends AppCompatActivity {
         if (testNumber == 0) {
             fragmentTransaction.hide(firstFragment)
                     .add(R.id.inpectorTestProblemList, inspectorTestProblemProfile);
+        } else if (currentFragment == 2) {
+            inspectorTestProblemList3.onResume();
         } else {
             fragmentTransaction.replace(R.id.inpectorTestProblemList, inspectorTestProblemProfile);
         }

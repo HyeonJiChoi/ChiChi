@@ -40,9 +40,10 @@ public class InspectorMainScreen extends AppCompatActivity {
         home.setText(MainActivity.firestoreManagement.user.get("home").toString());
         number.setText(MainActivity.firestoreManagement.user.get("number").toString());
 
+        System.out.println("userProfiles/"+MainActivity.name +"_"+MainActivity.password+".jpg");
         Glide.with(this)
                 .using(new FirebaseImageLoader())
-                .load(riversRef.child("userProfiles/"+"최현지chj159258357"+".jpg"))
+                .load(riversRef.child("userProfiles/"+MainActivity.name +"_"+MainActivity.password+".jpg"))
                 .into(inspectorMainScreenProfile);
 
         testButton.setOnClickListener(new View.OnClickListener() {
