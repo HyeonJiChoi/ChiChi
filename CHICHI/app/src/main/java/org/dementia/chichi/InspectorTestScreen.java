@@ -155,21 +155,22 @@ public class InspectorTestScreen extends AppCompatActivity {
                     fragmentProblemQuestionText.setText("누가 당신입니까?");
                     fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
                     answer = (int)(Math.random()*10)%2;
-                    int userId = Integer.parseInt(MainActivity.firestoreManagement.user.get("profile_number").toString());
-                    int otherId = ((int)(Math.random()*10)%MainActivity.firestoreManagement.userCount);
+                    String userId = "최현지chj159258357";
+                    String otherId = MainActivity.firestoreManagement.userCount.get((int)(Math.random()*10)%MainActivity.firestoreManagement.userCount.size()).toString();
 
-                    while(userId==otherId){
-                        other_picture_number = ((int)(Math.random()*10)%MainActivity.firestoreManagement.userCount);
+                    System.out.println(MainActivity.firestoreManagement.userCount);
+                    while(userId.equals(otherId)){
+                        otherId = MainActivity.firestoreManagement.userCount.get((int)(Math.random()*10)%MainActivity.firestoreManagement.userCount.size()).toString();
                     }
 
                     String[] ids = new String[2];
 
                     for(int i=0; i<2; i++){
                         if(i==answer){
-                            ids[i]=Integer.toString(userId);
+                            ids[i]=userId;
                         }
                         else{
-                            ids[i]=Integer.toString(otherId);
+                            ids[i]=otherId;
                         }
                     }
                     show_profileProblem(ids[0], ids[1], answer);

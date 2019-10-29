@@ -6,10 +6,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -20,12 +23,13 @@ public class FirestoreManagement {
     public Map<String, Object> user;
     public Set<String> todayProblems;
     public Map<String, Object> picture_number;
-    public int userCount;
+    public ArrayList<String> userCount = new ArrayList<String>();
 
     public FirestoreManagement() {
         db = FirebaseFirestore.getInstance();
         read_user("최현지chj159258357");
         read_orientation_picture();
+        read_users_count();
     }
 
     public void add(String name, String password, int age, String home, String number) {
@@ -53,7 +57,6 @@ public class FirestoreManagement {
                             if (document.exists()) {
                                 user = document.getData();
                                 read_day_problems(user.get("day").toString());
-                                read_users_count();
                             } else {
                                 System.out.println("sorry1");
                             }
@@ -111,20 +114,20 @@ public class FirestoreManagement {
     }
 
     public void read_users_count() {
-        db.collection("Inspector").get()
+        db.collection("Inspector")
+                .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            QuerySnapshot document = task.getResult();
-                            if (!document.isEmpty()) {
-                                userCount = document.getDocuments().size();
-                            } else {
-                                System.out.println("sorry1");
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String newid = document.getId();
+                                userCount.add(newid);
                             }
                         } else {
-                            System.out.println("sorry2");
+                            System.out.println("sorry1");
                         }
+
                     }
                 });
     }
