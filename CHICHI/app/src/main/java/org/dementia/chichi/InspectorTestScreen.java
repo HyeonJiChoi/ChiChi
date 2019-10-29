@@ -72,8 +72,11 @@ public class InspectorTestScreen extends AppCompatActivity {
                         if(i==answer){
                             Dates[i]=wordDate[0] + "년 "+wordDate[1]+"월";;
                         }
-                        else{
-                            Dates[i] = (Integer.parseInt(wordDate[0])+(int)(Math.random()*10)%5) + "년 "+((Integer.parseInt(wordDate[1])+(int)(Math.random()*10)%5)%12+1)+"월";
+                        else if(i<answer){
+                            Dates[i] = (Integer.parseInt(wordDate[0])+(int)(Math.random()*10)%5) + "년 "+((Integer.parseInt(wordDate[1])-(int)(Math.random()*10)%7)%12-1)+"월";
+                        }
+                        else if(i>answer){
+                            Dates[i] = (Integer.parseInt(wordDate[0])-(int)(Math.random()*10)%5) + "년 "+((Integer.parseInt(wordDate[1])+(int)(Math.random()*10)%7)%12+1)+"월";
                         }
                     }
 
@@ -155,12 +158,10 @@ public class InspectorTestScreen extends AppCompatActivity {
                     fragmentProblemQuestionText.setText("누가 당신입니까?");
                     fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
                     answer = (int)(Math.random()*10)%2;
-                    String userId = "최현지chj159258357";
-                    String otherId = MainActivity.firestoreManagement.userCount.get((int)(Math.random()*10)%MainActivity.firestoreManagement.userCount.size()).toString();
-
-                    System.out.println(MainActivity.firestoreManagement.userCount);
+                    String userId = MainActivity.name +"_"+ MainActivity.password;
+                    String otherId = MainActivity.firestoreManagement.userIds.get((int)(Math.random()*10)%MainActivity.firestoreManagement.userIds.size()).toString();
                     while(userId.equals(otherId)){
-                        otherId = MainActivity.firestoreManagement.userCount.get((int)(Math.random()*10)%MainActivity.firestoreManagement.userCount.size()).toString();
+                        otherId = MainActivity.firestoreManagement.userIds.get((int)(Math.random()*10)%MainActivity.firestoreManagement.userIds.size()).toString();
                     }
 
                     String[] ids = new String[2];
@@ -174,6 +175,30 @@ public class InspectorTestScreen extends AppCompatActivity {
                         }
                     }
                     show_profileProblem(ids[0], ids[1], answer);
+                    break;
+                case 4:
+                    fragmentProblemQuestionText.setText("당신의 이름은 무엇입니까?");
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    answer = (int)(Math.random()*10)%2;
+                    String userName = MainActivity.name;
+                    String otherName = MainActivity.firestoreManagement.userIds.get((int)(Math.random()*10)%MainActivity.firestoreManagement.userIds.size()).split("_")[0];
+                    while(userName.equals(otherName)){
+                        otherName = MainActivity.firestoreManagement.userIds.get((int)(Math.random()*10)%MainActivity.firestoreManagement.userIds.size()).split("_")[0];
+                    }
+
+                    String[] names = new String[2];
+
+                    for(int i=0; i<2; i++){
+                        if(i==answer){
+                            names[i]=userName;
+                        }
+                        else{
+                            names[i]=otherName;
+                        }
+                    }
+                    show_2problem(names[0], names[1], answer);
+                    break;
+
 
             }
             testNumber++;

@@ -23,11 +23,11 @@ public class FirestoreManagement {
     public Map<String, Object> user;
     public Set<String> todayProblems;
     public Map<String, Object> picture_number;
-    public ArrayList<String> userCount = new ArrayList<String>();
+    public ArrayList<String> userIds = new ArrayList<String>();
 
     public FirestoreManagement() {
         db = FirebaseFirestore.getInstance();
-        read_user("최현지chj159258357");
+        read_user(MainActivity.name+"_"+MainActivity.password);
         read_orientation_picture();
         read_users_count();
     }
@@ -45,9 +45,9 @@ public class FirestoreManagement {
                 .set(newUser);
     }
 
-    public void read_user(String name) {
+    public void read_user(String id) {
         db.collection("Inspector")
-                .document(name)
+                .document(id)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -58,10 +58,10 @@ public class FirestoreManagement {
                                 user = document.getData();
                                 read_day_problems(user.get("day").toString());
                             } else {
-                                System.out.println("sorry1");
+                                System.out.println("User_sorry1");
                             }
                         } else {
-                            System.out.println("sorry2");
+                            System.out.println("User_sorry2");
                         }
                     }
                 });
@@ -81,10 +81,10 @@ public class FirestoreManagement {
                                 todayProblems = problems.keySet();
 
                             } else {
-                                System.out.println("sorry1");
+                                System.out.println("PerdayProblem_sorry1");
                             }
                         } else {
-                            System.out.println("sorry2");
+                            System.out.println("PerdayProblem_sorry2");
                         }
                     }
                 });
@@ -104,10 +104,10 @@ public class FirestoreManagement {
                                 ;
 
                             } else {
-                                System.out.println("sorry1");
+                                System.out.println("Problem_sorry1");
                             }
                         } else {
-                            System.out.println("sorry2");
+                            System.out.println("Problem_sorry2");
                         }
                     }
                 });
@@ -121,11 +121,10 @@ public class FirestoreManagement {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                String newid = document.getId();
-                                userCount.add(newid);
+                                userIds.add(document.getId());
                             }
                         } else {
-                            System.out.println("sorry1");
+                            System.out.println("Inspector_sorry1");
                         }
 
                     }
