@@ -128,6 +128,7 @@ public class InspectorTestScreen extends AppCompatActivity {
                         fragmentTransaction.replace(R.id.inpectorTestProblemList, inspectorTestProblemPicture);
                     }
                     fragmentTransaction.commit();
+                    currentFragment=3;
 
 
                     final String[] objects = new String[2];
