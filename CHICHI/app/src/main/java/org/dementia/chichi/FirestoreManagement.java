@@ -20,6 +20,7 @@ public class FirestoreManagement {
     public Map<String, Object> user;
     public Set<String> todayProblems;
     public Map<String, Object> picture_number;
+    public int userCount;
 
     public FirestoreManagement() {
         db = FirebaseFirestore.getInstance();
@@ -52,6 +53,7 @@ public class FirestoreManagement {
                             if (document.exists()) {
                                 user = document.getData();
                                 read_day_problems(user.get("day").toString());
+                                read_users_count();
                             } else {
                                 System.out.println("sorry1");
                             }
@@ -61,7 +63,8 @@ public class FirestoreManagement {
                     }
                 });
     }
-    public void read_day_problems(String day){
+
+    public void read_day_problems(String day) {
         db.collection("PerdayProblem")
                 .document(day)
                 .get()
@@ -83,7 +86,8 @@ public class FirestoreManagement {
                     }
                 });
     }
-    public void read_orientation_picture(){
+
+    public void read_orientation_picture() {
         db.collection("Problem")
                 .document("Orientation_picture")
                 .get()
@@ -93,8 +97,28 @@ public class FirestoreManagement {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
-                                picture_number = document.getData();;
+                                picture_number = document.getData();
+                                ;
 
+                            } else {
+                                System.out.println("sorry1");
+                            }
+                        } else {
+                            System.out.println("sorry2");
+                        }
+                    }
+                });
+    }
+
+    public void read_users_count() {
+        db.collection("Inspector").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            QuerySnapshot document = task.getResult();
+                            if (!document.isEmpty()) {
+                                userCount = document.getDocuments().size();
                             } else {
                                 System.out.println("sorry1");
                             }
