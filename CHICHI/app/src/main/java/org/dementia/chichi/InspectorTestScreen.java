@@ -205,7 +205,7 @@ public class InspectorTestScreen extends AppCompatActivity {
                         if (i == answer) {
                             ages[i] = Integer.toString(userAge);
                         } else if (i < answer) {
-                            ages[i] = Integer.toString(userAge - (int) ((Math.random() * 10) % 10) + 5);
+                            ages[i] = Integer.toString(userAge - (int) ((Math.random() * 10) % 10) - 5);
                         } else if (i > answer) {
                             ages[i] = Integer.toString(userAge + (int) ((Math.random() * 10) % 10) + 5);
                         }
@@ -219,8 +219,8 @@ public class InspectorTestScreen extends AppCompatActivity {
                     int operation = (int) (Math.random() * 10) % 4;
                     if (operation == 3) {
                         while (num1 % num2 != 0) {
-                            num1 = (int) (Math.random() * 10) % 10;
-                            num2 = (int) (Math.random() * 10) % 10;
+                            num1 = (int) (Math.random() * 10) % 10+1;
+                            num2 = (int) (Math.random() * 10) % 10+1;
                         }
                     }
 
