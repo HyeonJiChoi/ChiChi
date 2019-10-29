@@ -198,6 +198,29 @@ public class InspectorTestScreen extends AppCompatActivity {
                     }
                     show_2problem(names[0], names[1], answer);
                     break;
+                case 5:
+                    fragmentProblemQuestionText.setText("당신의 나이는 몇입니까?");
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    answer = (int)(Math.random()*10)%3;
+
+                    String[] ages = new String[3];
+                    int userAge = Integer.parseInt(MainActivity.firestoreManagement.user.get("age").toString());
+
+                    //날짜를 랜덤으로 구하기
+                    for(int i=0; i<3; i++){
+                        if(i==answer){
+                            ages[i] = Integer.toString(userAge);
+                        }
+                        else if(i<answer){
+                            ages[i] =Integer.toString( userAge+((int)(Math.random()*10)%5)+5);
+                        }
+                        else if(i>answer){
+                            ages[i] = Integer.toString( userAge-((int)(Math.random()*10)%5)+5);
+                        }
+                    }
+
+                    show_3problem(ages[0], ages[1], ages[2],answer);
+                    break;
 
 
             }
