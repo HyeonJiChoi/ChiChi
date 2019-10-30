@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-    static String name;
+    static String name, password;
     Button button;
     static FirestoreManagement firestoreManagement;
     @Override
@@ -19,7 +19,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        name  = "최현지";
+        name  = "강아지";
+        password = "123456";
 
         button = findViewById(R.id.mainButton);
         button.setOnClickListener(new View.OnClickListener() {

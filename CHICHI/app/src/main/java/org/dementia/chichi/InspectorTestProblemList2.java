@@ -24,13 +24,19 @@ public class InspectorTestProblemList2 extends Fragment {
         TestProblemListbig1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //activity.onChangeFragment();
+                if(problem_string.getInt("answer")==1){
+                    activity.set_score(true);
+                }
+                activity.onChangeFragment();
             }
         });
         TestProblemListbig2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // activity.onChangeFragment();
+                if(problem_string.getInt("answer")==2){
+                    activity.set_score(true);
+                }
+               activity.onChangeFragment();
             }
         });
         // Inflate the layout for this fragment

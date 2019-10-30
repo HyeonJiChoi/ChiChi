@@ -27,18 +27,27 @@ public class InspectorTestProblemList3 extends Fragment {
         TestProblemListSmall1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(problem_string.getInt("answer")==1){
+                    activity.set_score(true);
+                }
                 activity.onChangeFragment();
             }
         });
         TestProblemListSmall2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(problem_string.getInt("answer")==2){
+                    activity.set_score(true);
+                }
                 activity.onChangeFragment();
             }
         });
         TestProblemListSmall3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(problem_string.getInt("answer")==3){
+                    activity.set_score(true);
+                }
                 activity.onChangeFragment();
             }
         });
