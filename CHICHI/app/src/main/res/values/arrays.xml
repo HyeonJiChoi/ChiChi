@@ -22,8 +22,9 @@
         <item>1948</item>
         <item>1949</item>
         <item>1950</item>
-
-
-
+    </string-array>
+    <string-array name="marry">
+        <item>기혼</item>
+        <item>미혼</item>
     </string-array>
 </resources>
