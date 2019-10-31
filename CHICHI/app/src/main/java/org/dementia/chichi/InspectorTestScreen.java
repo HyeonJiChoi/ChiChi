@@ -5,9 +5,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -17,7 +19,12 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static android.Manifest.permission.READ_CALL_LOG;
+
 public class InspectorTestScreen extends AppCompatActivity {
+    private static final int PERMISSION_REQUEST_CODE = 200;
+    private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
+    AllowCallPermission allowCallPermission;
     public int testNumber = 0;
     int nextProblem = 0;
     public Map<String, Object> user;
@@ -220,8 +227,8 @@ public class InspectorTestScreen extends AppCompatActivity {
                     int operation = (int) (Math.random() * 10) % 4;
                     if (operation == 3) {
                         while (num1 % num2 != 0) {
-                            num1 = (int) (Math.random() * 10) % 10+1;
-                            num2 = (int) (Math.random() * 10) % 10+1;
+                            num1 = (int) (Math.random() * 10) % 10 + 1;
+                            num2 = (int) (Math.random() * 10) % 10 + 1;
                         }
                     }
 
@@ -249,8 +256,8 @@ public class InspectorTestScreen extends AppCompatActivity {
                     fragmentProblemQuestionText.setText("당신은 결혼 하셨습니까?");
                     fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
                     boolean merried = Boolean.getBoolean(MainActivity.firestoreManagement.user.get("married").toString());
-                    if(merried==true) answer=0;
-                    else answer=1;
+                    if (merried == true) answer = 0;
+                    else answer = 1;
                     show_2problem("O", "X", answer);
                     break;
                 case 8: //집주소 문제
@@ -266,11 +273,11 @@ public class InspectorTestScreen extends AppCompatActivity {
                         if (i == answer) {
                             homes[i] = address;
                         } else {
-                            String newAddress = MainActivity.firestoreManagement.userAddresses.get((int)(Math.random()*10)
-                                    %MainActivity.firestoreManagement.userIds.size());
-                            while(Arrays.asList(homes).contains(newAddress) || newAddress.equals(address))
-                                newAddress = MainActivity.firestoreManagement.userAddresses.get((int)(Math.random()*10)
-                                        %MainActivity.firestoreManagement.userIds.size());
+                            String newAddress = MainActivity.firestoreManagement.userAddresses.get((int) (Math.random() * 10)
+                                    % MainActivity.firestoreManagement.userIds.size());
+                            while (Arrays.asList(homes).contains(newAddress) || newAddress.equals(address))
+                                newAddress = MainActivity.firestoreManagement.userAddresses.get((int) (Math.random() * 10)
+                                        % MainActivity.firestoreManagement.userIds.size());
                             homes[i] = newAddress;
                         }
                     }
@@ -281,7 +288,7 @@ public class InspectorTestScreen extends AppCompatActivity {
                     fragmentProblemQuestionText.setText("당신은 몇명의 \n자녀가 있습니까?");
                     fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
 
-                    if(MainActivity.firestoreManagement.user.containsKey("child")){
+                    if (MainActivity.firestoreManagement.user.containsKey("child")) {
                         answer = (int) (Math.random() * 10) % 3;
                         String[] child = new String[3];
 
@@ -299,9 +306,54 @@ public class InspectorTestScreen extends AppCompatActivity {
                         }
 
                         show_3problem(child[0], child[1], child[2], answer);
-                        break;
+                    }
+                    break;
+                case 10: //통화한 사람찾기
+                    fragmentProblemQuestionText.setText("가장 최근 통화한 사람은\n누구 입니까?");
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    allowCallPermission = new AllowCallPermission();
+                    allowCallPermission.activity = this;
+                    if (!allowCallPermission.checkPermissionCall()) {
+                        allowCallPermission.requestPermissionCall();
+                    } else {
+                        // 권한이 있으면 call log를 가지고 옵니다.
+                        allowCallPermission.setCallLog();
+                        System.out.println(allowCallPermission.callPerson);
                     }
 
+                    //시간 차이 구하기 위함
+                    SimpleDateFormat f = new SimpleDateFormat("HH:mm:ss", Locale.KOREA);
+                    long subSec = 0;
+                    try {
+                        subSec = (f.parse(getTimeString()).getTime() - f.parse(allowCallPermission.callTime).getTime()) / 1000;
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    //만약 날짜가 같고 시간이 2시간 이하이면,
+                    if (getDateString().equals(allowCallPermission.callDate) && (subSec <= 7200) && allowCallPermission.didCall && allowCallPermission.callPerson!=null) {
+                        answer = (int) (Math.random() * 10) % 3;
+                        String[] callPerson = new String[3];
+
+                        if (!allowCallPermission.checkPermissionContent()) {
+                            allowCallPermission.requestPermissionContent();
+                        } else {
+                            // 권한이 있으면 call log를 가지고 옵니다.
+                            allowCallPermission.getCallAddress();
+                        }
+                        //값을 랜덤으로 구하기
+                        for (int i = 0; i < 3; i++) {
+                            if (i == answer) {
+                                callPerson[i] = allowCallPermission.callPerson;
+                            } else {
+                                String newName = allowCallPermission.AddressNames.get((int)(Math.random()*10)%allowCallPermission.AddressCount);
+                                while (Arrays.asList(callPerson).contains(newName) || newName.equals(allowCallPermission.callPerson))
+                                    newName = allowCallPermission.AddressNames.get((int)(Math.random()*10)
+                                    %allowCallPermission.AddressCount);
+                                callPerson[i] = newName;
+                            }
+                        }
+                        show_3problem(callPerson[0], callPerson[1], callPerson[2], answer);
+                    }
 
 
             }
@@ -389,6 +441,14 @@ public class InspectorTestScreen extends AppCompatActivity {
         return str_date;
     }
 
+    //날짜 구하는거
+    public String getTimeString() {
+        SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss", Locale.KOREA);
+        String str_time = df.format(new Date());
+
+        return str_time;
+    }
+
     public String getSeason(int month) {
         if (month >= 3 && month <= 5) return "봄";
         else if (month >= 6 && month <= 8) return "여름";
@@ -427,5 +487,34 @@ public class InspectorTestScreen extends AppCompatActivity {
     public void set_score(boolean collected) {
         if (collected) score += 1;
         System.out.println(score);
+    }
+
+    // permission 요청 결과
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0) {
+                    boolean callLogAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+
+                    if (callLogAccepted) {
+                        // 권한이 있으면 callLog를 가지고 옵니다.
+                        allowCallPermission.setCallLog();
+                        allowCallPermission.getCallAddress();
+                    }
+                }
+                break;
+            case PERMISSIONS_REQUEST_READ_CONTACTS:
+                if (grantResults.length > 0) {
+                    boolean callLogAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+
+                    if (callLogAccepted) {
+                        // 권한이 있으면 callLog를 가지고 옵니다.
+                        allowCallPermission.getCallAddress();
+                    }
+                }
+                break;
+
+        }
     }
 }
