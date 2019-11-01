@@ -2,15 +2,23 @@ package org.dementia.chichi;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
@@ -19,9 +27,8 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static android.Manifest.permission.READ_CALL_LOG;
-
 public class InspectorTestScreen extends AppCompatActivity {
+    private  static  final int PERMISSIONS_RECORD_AUDIO= 300;
     private static final int PERMISSION_REQUEST_CODE = 200;
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
     AllowCallPermission allowCallPermission;
@@ -38,8 +45,12 @@ public class InspectorTestScreen extends AppCompatActivity {
     InspectorTestProblemList2 inspectorTestProblemList2 = new InspectorTestProblemList2();
     InspectorTestProblemPicture inspectorTestProblemPicture = new InspectorTestProblemPicture();
     InspectorTestProblemProfile inspectorTestProblemProfile = new InspectorTestProblemProfile();
+    InspectorTestProblemTextSpeak inspectorTestProblemTextSpeak = new InspectorTestProblemTextSpeak();
     private int score = 0;
     private int currentFragment = 0;
+    //음성인식을 위한 변수들
+    Intent intent;
+    SpeechRecognizer mRecognizer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -330,7 +341,7 @@ public class InspectorTestScreen extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     //만약 날짜가 같고 시간이 2시간 이하이면,
-                    if (getDateString().equals(allowCallPermission.callDate) && (subSec <= 7200) && allowCallPermission.didCall && allowCallPermission.callPerson!=null) {
+                    if (getDateString().equals(allowCallPermission.callDate) && (subSec <= 7200) && allowCallPermission.didCall && allowCallPermission.callPerson != null) {
                         answer = (int) (Math.random() * 10) % 3;
                         String[] callPerson = new String[3];
 
@@ -345,21 +356,53 @@ public class InspectorTestScreen extends AppCompatActivity {
                             if (i == answer) {
                                 callPerson[i] = allowCallPermission.callPerson;
                             } else {
-                                String newName = allowCallPermission.AddressNames.get((int)(Math.random()*10)%allowCallPermission.AddressCount);
+                                String newName = allowCallPermission.AddressNames.get((int) (Math.random() * 10) % allowCallPermission.AddressCount);
                                 while (Arrays.asList(callPerson).contains(newName) || newName.equals(allowCallPermission.callPerson))
-                                    newName = allowCallPermission.AddressNames.get((int)(Math.random()*10)
-                                    %allowCallPermission.AddressCount);
+                                    newName = allowCallPermission.AddressNames.get((int) (Math.random() * 10)
+                                            % allowCallPermission.AddressCount);
                                 callPerson[i] = newName;
                             }
                         }
                         show_3problem(callPerson[0], callPerson[1], callPerson[2], answer);
                     }
+                    break;
+                case 11: //단어 말하기
+                    fragmentProblemQuestionText.setText("다음 단어를 말해주세요");
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+
+                    //답정하기
+                    String speak_answer = MainActivity.firestoreManagement.picture_number.get(Integer.toString((int) (Math.random() * 10) % MainActivity.firestoreManagement.picture_number.size())).toString();
+                    intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                    intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getPackageName());
+                    intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ko-KR");
+                    allowCallPermission = new AllowCallPermission();
+                    allowCallPermission.activity = this;
+
+                    mRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
+                    mRecognizer.setRecognitionListener(inspectorTestProblemTextSpeak.listener);
+                    inspectorTestProblemTextSpeak.mRecognizer = mRecognizer;
+                    inspectorTestProblemTextSpeak.intent = intent;
+                    inspectorTestProblemTextSpeak.activity = this;
+                    if (allowCallPermission.checkPermissionRecordAudio()) {
+                        //권한을 허용하지 않는 경우
+                        allowCallPermission.requestPermissionsRecordAudio();
+                    } else {
+                        //권한을 허용한 경우
+                        try {
+                            mRecognizer.startListening(intent);
+                        } catch (SecurityException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    show_textSpeakProblem(speak_answer);
+                    break;
 
 
             }
             testNumber++;
         }
     }
+
 
     public void show_3problem(String str1, String str2, String str3, int answer) {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -397,7 +440,7 @@ public class InspectorTestScreen extends AppCompatActivity {
             fragmentTransaction.hide(firstFragment)
                     .add(R.id.inpectorTestProblemList, inspectorTestProblemList2);
         } else if (currentFragment == 1) {
-            inspectorTestProblemList3.onResume();
+            inspectorTestProblemList2.onResume();
         } else {
             fragmentTransaction.replace(R.id.inpectorTestProblemList, inspectorTestProblemList2);
         }
@@ -419,11 +462,30 @@ public class InspectorTestScreen extends AppCompatActivity {
             fragmentTransaction.hide(firstFragment)
                     .add(R.id.inpectorTestProblemList, inspectorTestProblemProfile);
         } else if (currentFragment == 2) {
-            inspectorTestProblemList3.onResume();
+            inspectorTestProblemProfile.onResume();
         } else {
             fragmentTransaction.replace(R.id.inpectorTestProblemList, inspectorTestProblemProfile);
         }
         currentFragment = 2;
+        fragmentTransaction.commit();
+    }
+    public void show_textSpeakProblem(String answer) {
+        //프래그먼트에 전달해줄 거 정해주기
+        Bundle newBundle = new Bundle();
+        newBundle.putString("answer", answer);
+        inspectorTestProblemTextSpeak.setArguments(newBundle);
+        inspectorTestProblemTextSpeak.activity = this;
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+        if (testNumber == 0) {
+            fragmentTransaction.hide(firstFragment)
+                    .add(R.id.inpectorTestProblemList, inspectorTestProblemTextSpeak);
+        } else if (currentFragment == 3) {
+            inspectorTestProblemTextSpeak.onResume();
+        } else {
+            fragmentTransaction.replace(R.id.inpectorTestProblemList, inspectorTestProblemTextSpeak);
+        }
+        currentFragment = 3;
         fragmentTransaction.commit();
     }
 
@@ -514,7 +576,21 @@ public class InspectorTestScreen extends AppCompatActivity {
                     }
                 }
                 break;
+            case PERMISSIONS_RECORD_AUDIO:
+                if (grantResults.length > 0) {
+                    boolean callLogAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+
+                    if (callLogAccepted) {
+                        // 권한이 있으면 callLog를 가지고 옵니다.
+                        try {
+                            mRecognizer.startListening(intent);
+                        } catch (SecurityException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
 
         }
     }
+
 }

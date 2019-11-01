@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.CallLog;
 import android.provider.ContactsContract;
+import android.speech.RecognitionListener;
+import android.speech.SpeechRecognizer;
 
 
 import androidx.core.app.ActivityCompat;
@@ -17,6 +20,7 @@ import java.util.Date;
 
 import static android.Manifest.permission.READ_CALL_LOG;
 import static android.Manifest.permission.READ_CONTACTS;
+import static android.Manifest.permission.RECORD_AUDIO;
 
 public class AllowCallPermission {
     public String callPerson;
@@ -27,8 +31,8 @@ public class AllowCallPermission {
     public ArrayList<String> AddressNames = new ArrayList<String>();
     private static final int PERMISSION_REQUEST_CODE = 200;
     private static final int PERMISSION_CONTENT_CODE = 100;
+    private static final int PERMISSION_RECORD_AUDIO = 300;
     public Activity activity;
-
 
     // permission 확인
     public boolean checkPermissionCall() {
@@ -37,6 +41,10 @@ public class AllowCallPermission {
     }
     public boolean checkPermissionContent() {
         int result = ContextCompat.checkSelfPermission(activity, READ_CONTACTS);
+        return result == PackageManager.PERMISSION_GRANTED;
+    }
+    public boolean checkPermissionRecordAudio() {
+        int result = ContextCompat.checkSelfPermission(activity, RECORD_AUDIO);
         return result == PackageManager.PERMISSION_GRANTED;
     }
 
@@ -50,6 +58,11 @@ public class AllowCallPermission {
         ActivityCompat.requestPermissions(activity,
                 new String[]{READ_CONTACTS},
                 PERMISSION_CONTENT_CODE);
+    }
+    public void requestPermissionsRecordAudio() {
+        ActivityCompat.requestPermissions(activity,
+                new String[]{RECORD_AUDIO},
+                PERMISSION_RECORD_AUDIO);
     }
 
     // CallLog를 반환합니다.
@@ -95,7 +108,6 @@ public class AllowCallPermission {
             AddressNames.add(phoneCursor.getString(nameColumn));
         }
     }
-
     public void splitCallDate(Date date) {
         String[] newdate = date.toString().split(" ");
         callDate = newdate[5] + "-" + changeMonth(newdate[1]) + "-" + newdate[2];
