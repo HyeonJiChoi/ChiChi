@@ -44,6 +44,7 @@ public class InspectorTestScreen extends AppCompatActivity {
     InspectorTestProblemProfile inspectorTestProblemProfile = new InspectorTestProblemProfile();
     InspectorTestProblemTextSpeak inspectorTestProblemTextSpeak = new InspectorTestProblemTextSpeak();
     InspectorTestProblemPictureSpeak inspectorTestProblemPictureSpeak = new InspectorTestProblemPictureSpeak();
+    InspectorTestProblemDrawText inspectorTestProblemDrawText = new InspectorTestProblemDrawText();
     private int score = 0;
     private int currentFragment = 0;
     //음성인식을 위한 변수들
@@ -406,6 +407,18 @@ public class InspectorTestScreen extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     break;
+                case 13: //단어 말하기
+
+                    //답정하기
+                    String write_answer = MainActivity.firestoreManagement.picture_number.get(Integer.toString((int) (Math.random() * 10) % MainActivity.firestoreManagement.picture_number.size())).toString();
+
+                    inspectorTestProblemDrawText.activity = this;
+
+                    fragmentProblemQuestionText.setText("다음 단어를 적어주세요");
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    show_textWriteProblem(write_answer);
+
+                    break;
 
             }
             testNumber++;
@@ -516,6 +529,25 @@ public class InspectorTestScreen extends AppCompatActivity {
             fragmentTransaction.replace(R.id.inpectorTestProblemList, inspectorTestProblemPictureSpeak);
         }
         currentFragment = 4;
+        fragmentTransaction.commit();
+    }
+    public void show_textWriteProblem(String answer) {
+        //프래그먼트에 전달해줄 거 정해주기
+        Bundle newBundle = new Bundle();
+        newBundle.putString("answer", answer);
+        inspectorTestProblemDrawText.setArguments(newBundle);
+        inspectorTestProblemDrawText.activity = this;
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+        if (testNumber == 0) {
+            fragmentTransaction.hide(firstFragment)
+                    .add(R.id.inpectorTestProblemList, inspectorTestProblemDrawText);
+        } else if (currentFragment == 5) {
+            inspectorTestProblemDrawText.onResume();
+        } else {
+            fragmentTransaction.replace(R.id.inpectorTestProblemList, inspectorTestProblemDrawText);
+        }
+        currentFragment = 5;
         fragmentTransaction.commit();
     }
 
