@@ -38,6 +38,8 @@ public class InspectorSurvey1 extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inspector_survey1);
         Intent intent = new Intent(this.getIntent()); // main screen에서 사전조사창으로 이동한 intent 받기
+
+
         editText1 = findViewById(R.id.editText1);
         editText2 = findViewById(R.id.editText2);
         editText3 = findViewById(R.id.editText3);
