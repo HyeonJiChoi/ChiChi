@@ -45,6 +45,7 @@ public class InspectorTestScreen extends AppCompatActivity {
     InspectorTestProblemTextSpeak inspectorTestProblemTextSpeak = new InspectorTestProblemTextSpeak();
     InspectorTestProblemPictureSpeak inspectorTestProblemPictureSpeak = new InspectorTestProblemPictureSpeak();
     InspectorTestProblemDrawText inspectorTestProblemDrawText = new InspectorTestProblemDrawText();
+    InspectorTestProblemDrawSound inspectorTestProblemDrawSound = new InspectorTestProblemDrawSound();
     private int score = 0;
     private int currentFragment = 0;
     //음성인식을 위한 변수들
@@ -398,7 +399,7 @@ public class InspectorTestScreen extends AppCompatActivity {
                     mRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
                     mRecognizer.setRecognitionListener(inspectorTestProblemPictureSpeak.listener);
                     inspectorTestProblemPictureSpeak.mRecognizer = mRecognizer;
-                    fragmentProblemQuestionText.setText("그림에 해당하는 단어를 말해주세요");
+                    fragmentProblemQuestionText.setText("그림에 해당하는 \n단어를 말해주세요");
                     fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
                     show_textSpeakProblem(picture_number, speak_picture_answer);
                     try {
@@ -407,7 +408,7 @@ public class InspectorTestScreen extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     break;
-                case 13: //단어 말하기
+                case 13: //보이는 단어 쓰기
 
                     //답정하기
                     String write_answer = MainActivity.firestoreManagement.picture_number.get(Integer.toString((int) (Math.random() * 10) % MainActivity.firestoreManagement.picture_number.size())).toString();
@@ -418,6 +419,26 @@ public class InspectorTestScreen extends AppCompatActivity {
                     fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
                     show_textWriteProblem(write_answer);
 
+                    break;
+                case 14: //들리는 단어 쓰기
+
+                    //답정하기
+                    String listen_answer = MainActivity.firestoreManagement.picture_number.get(Integer.toString((int) (Math.random() * 10) % MainActivity.firestoreManagement.picture_number.size())).toString();
+
+                    inspectorTestProblemDrawSound.activity = this;
+
+                    fragmentProblemQuestionText.setText("들리는 단어를 적어주세요");
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    show_SoundWriteProblem(listen_answer);
+
+                    break;
+                case 15: //퀴즈 여부
+                    fragmentProblemQuestionText.setText("이와 같은 퀴즈를\n본 적 있나요?");
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    int day = Integer.parseInt(MainActivity.firestoreManagement.user.get("day").toString());
+                    if (day>0) answer = 0;
+                    else answer = 1;
+                    show_2problem("O", "X", answer);
                     break;
 
             }
@@ -548,6 +569,25 @@ public class InspectorTestScreen extends AppCompatActivity {
             fragmentTransaction.replace(R.id.inpectorTestProblemList, inspectorTestProblemDrawText);
         }
         currentFragment = 5;
+        fragmentTransaction.commit();
+    }
+    public void show_SoundWriteProblem(String answer) {
+        //프래그먼트에 전달해줄 거 정해주기
+        Bundle newBundle = new Bundle();
+        newBundle.putString("answer", answer);
+        inspectorTestProblemDrawSound.setArguments(newBundle);
+        inspectorTestProblemDrawSound.activity = this;
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+        if (testNumber == 0) {
+            fragmentTransaction.hide(firstFragment)
+                    .add(R.id.inpectorTestProblemList, inspectorTestProblemDrawSound);
+        } else if (currentFragment == 6) {
+            inspectorTestProblemDrawSound.onResume();
+        } else {
+            fragmentTransaction.replace(R.id.inpectorTestProblemList, inspectorTestProblemDrawSound);
+        }
+        currentFragment = 6;
         fragmentTransaction.commit();
     }
 

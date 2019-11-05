@@ -5,22 +5,28 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
+import static android.speech.tts.TextToSpeech.ERROR;
+
+import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class InspectorTestProblemDrawText extends Fragment {
+public class InspectorTestProblemDrawSound extends Fragment {
+    private TextToSpeech tts;
     String resultText = "";
-    ImageButton InspectorTestProblemDrawTextButton;
     public InspectorTestScreen activity;
-    TextView InspectorTestProblemDrawText;
+    Button RepeatButton;
+    ImageButton inputButton;
     String answer;
     DrawViewCanvas canvasView;
     private String[] currentTopLabels;
@@ -31,12 +37,22 @@ public class InspectorTestProblemDrawText extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_inspector_test_problem_draw_text, container, false);
         // Inflate the layout for this fragment
-        canvasView = view.findViewById(R.id.InspectorTestProblemDrawTextCanvas);
-        InspectorTestProblemDrawText = view.findViewById(R.id.InspectorTestProblemDrawText);
-        InspectorTestProblemDrawTextButton = view.findViewById(R.id.InspectorTestProblemDrawTextButton);
-        InspectorTestProblemDrawTextButton.setOnClickListener(new View.OnClickListener() {
+        View view = inflater.inflate(R.layout.fragment_inspector_test_problem_draw_sound, container, false);
+        tts = new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != ERROR) {
+                    // 언어를 선택한다.
+                    tts.setLanguage(Locale.KOREAN);
+                }
+            }
+        });
+
+        RepeatButton = view.findViewById(R.id.InspectorTestProblemDrawSoundRepeatButton);
+        canvasView= view.findViewById(R.id.InspectorTestProblemDrawSoundCanvas);
+        inputButton = view.findViewById(R.id.InspectorTestProblemDrawSoundButton);
+        inputButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 classify();
@@ -44,16 +60,29 @@ public class InspectorTestProblemDrawText extends Fragment {
                 canvasView.invalidate();
             }
         });
+        RepeatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tts.speak(answer,TextToSpeech.QUEUE_FLUSH, null);
+            }
+        });
         loadModel();
         return view;
     }
-
     @Override
     public void onResume() {
         super.onResume();
         Bundle newBundle = getArguments();
         answer = newBundle.getString("answer");
-        InspectorTestProblemDrawText.setText(answer);
+        Timer timer = new Timer();
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                tts.setSpeechRate(0.5f);
+                tts.speak(answer,TextToSpeech.QUEUE_FLUSH, null);
+            }
+        };
+        timer.schedule(timerTask, 500);
         canvasView.onResume();
     }
 
@@ -89,4 +118,5 @@ public class InspectorTestProblemDrawText extends Fragment {
             }
         }).start();
     }
+
 }
