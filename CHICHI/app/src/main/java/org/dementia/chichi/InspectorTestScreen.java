@@ -28,6 +28,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class InspectorTestScreen extends AppCompatActivity {
+    public int CDTscore = 0;
     AllowCallPermission allowCallPermission;
     public int testNumber = 0;
     int nextProblem = 0;
@@ -46,6 +47,7 @@ public class InspectorTestScreen extends AppCompatActivity {
     InspectorTestProblemPictureSpeak inspectorTestProblemPictureSpeak = new InspectorTestProblemPictureSpeak();
     InspectorTestProblemDrawText inspectorTestProblemDrawText = new InspectorTestProblemDrawText();
     InspectorTestProblemDrawSound inspectorTestProblemDrawSound = new InspectorTestProblemDrawSound();
+    InspectorTestProblemCDT inspectorTestProblemCDT = new InspectorTestProblemCDT();
     private int score = 0;
     private int currentFragment = 0;
     //음성인식을 위한 변수들
@@ -440,6 +442,13 @@ public class InspectorTestScreen extends AppCompatActivity {
                     else answer = 1;
                     show_2problem("O", "X", answer);
                     break;
+                case 16: //CDT
+                    int random_hour = (int)(Math.random()*10)%12+1;
+                    int minutes = 0;
+                    fragmentProblemQuestionText.setText(random_hour+"시 정각을 그려주세요");
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    show_CDTProblem(random_hour);
+                    break;
 
             }
             testNumber++;
@@ -588,6 +597,25 @@ public class InspectorTestScreen extends AppCompatActivity {
             fragmentTransaction.replace(R.id.inpectorTestProblemList, inspectorTestProblemDrawSound);
         }
         currentFragment = 6;
+        fragmentTransaction.commit();
+    }
+    public void show_CDTProblem(int answer) {
+        //프래그먼트에 전달해줄 거 정해주기
+        Bundle newBundle = new Bundle();
+        newBundle.putInt("answer", answer);
+        inspectorTestProblemCDT.setArguments(newBundle);
+        inspectorTestProblemCDT.activity = this;
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+        if (testNumber == 0) {
+            fragmentTransaction.hide(firstFragment)
+                    .add(R.id.inpectorTestProblemList, inspectorTestProblemCDT);
+        } else if (currentFragment == 7) {
+            inspectorTestProblemCDT.onResume();
+        } else {
+            fragmentTransaction.replace(R.id.inpectorTestProblemList, inspectorTestProblemCDT);
+        }
+        currentFragment = 7;
         fragmentTransaction.commit();
     }
 
