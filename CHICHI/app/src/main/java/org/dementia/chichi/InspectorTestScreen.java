@@ -28,6 +28,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class InspectorTestScreen extends AppCompatActivity {
+    public int CDTscore = 0;
     AllowCallPermission allowCallPermission;
     public int testNumber = 0;
     int nextProblem = 0;
@@ -44,6 +45,9 @@ public class InspectorTestScreen extends AppCompatActivity {
     InspectorTestProblemProfile inspectorTestProblemProfile = new InspectorTestProblemProfile();
     InspectorTestProblemTextSpeak inspectorTestProblemTextSpeak = new InspectorTestProblemTextSpeak();
     InspectorTestProblemPictureSpeak inspectorTestProblemPictureSpeak = new InspectorTestProblemPictureSpeak();
+    InspectorTestProblemDrawText inspectorTestProblemDrawText = new InspectorTestProblemDrawText();
+    InspectorTestProblemDrawSound inspectorTestProblemDrawSound = new InspectorTestProblemDrawSound();
+    InspectorTestProblemCDT inspectorTestProblemCDT = new InspectorTestProblemCDT();
     private int score = 0;
     private int currentFragment = 0;
     //음성인식을 위한 변수들
@@ -397,7 +401,7 @@ public class InspectorTestScreen extends AppCompatActivity {
                     mRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
                     mRecognizer.setRecognitionListener(inspectorTestProblemPictureSpeak.listener);
                     inspectorTestProblemPictureSpeak.mRecognizer = mRecognizer;
-                    fragmentProblemQuestionText.setText("그림에 해당하는 단어를 말해주세요");
+                    fragmentProblemQuestionText.setText("그림에 해당하는 \n단어를 말해주세요");
                     fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
                     show_textSpeakProblem(picture_number, speak_picture_answer);
                     try {
@@ -405,6 +409,45 @@ public class InspectorTestScreen extends AppCompatActivity {
                     } catch (SecurityException e) {
                         e.printStackTrace();
                     }
+                    break;
+                case 13: //보이는 단어 쓰기
+
+                    //답정하기
+                    String write_answer = MainActivity.firestoreManagement.picture_number.get(Integer.toString((int) (Math.random() * 10) % MainActivity.firestoreManagement.picture_number.size())).toString();
+
+                    inspectorTestProblemDrawText.activity = this;
+
+                    fragmentProblemQuestionText.setText("다음 단어를 적어주세요");
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    show_textWriteProblem(write_answer);
+
+                    break;
+                case 14: //들리는 단어 쓰기
+
+                    //답정하기
+                    String listen_answer = MainActivity.firestoreManagement.picture_number.get(Integer.toString((int) (Math.random() * 10) % MainActivity.firestoreManagement.picture_number.size())).toString();
+
+                    inspectorTestProblemDrawSound.activity = this;
+
+                    fragmentProblemQuestionText.setText("들리는 단어를 적어주세요");
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    show_SoundWriteProblem(listen_answer);
+
+                    break;
+                case 15: //퀴즈 여부
+                    fragmentProblemQuestionText.setText("이와 같은 퀴즈를\n본 적 있나요?");
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    int day = Integer.parseInt(MainActivity.firestoreManagement.user.get("day").toString());
+                    if (day>0) answer = 0;
+                    else answer = 1;
+                    show_2problem("O", "X", answer);
+                    break;
+                case 16: //CDT
+                    int random_hour = (int)(Math.random()*10)%12+1;
+                    int minutes = 0;
+                    fragmentProblemQuestionText.setText(random_hour+"시 정각을 그려주세요");
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    show_CDTProblem(random_hour);
                     break;
 
             }
@@ -516,6 +559,63 @@ public class InspectorTestScreen extends AppCompatActivity {
             fragmentTransaction.replace(R.id.inpectorTestProblemList, inspectorTestProblemPictureSpeak);
         }
         currentFragment = 4;
+        fragmentTransaction.commit();
+    }
+    public void show_textWriteProblem(String answer) {
+        //프래그먼트에 전달해줄 거 정해주기
+        Bundle newBundle = new Bundle();
+        newBundle.putString("answer", answer);
+        inspectorTestProblemDrawText.setArguments(newBundle);
+        inspectorTestProblemDrawText.activity = this;
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+        if (testNumber == 0) {
+            fragmentTransaction.hide(firstFragment)
+                    .add(R.id.inpectorTestProblemList, inspectorTestProblemDrawText);
+        } else if (currentFragment == 5) {
+            inspectorTestProblemDrawText.onResume();
+        } else {
+            fragmentTransaction.replace(R.id.inpectorTestProblemList, inspectorTestProblemDrawText);
+        }
+        currentFragment = 5;
+        fragmentTransaction.commit();
+    }
+    public void show_SoundWriteProblem(String answer) {
+        //프래그먼트에 전달해줄 거 정해주기
+        Bundle newBundle = new Bundle();
+        newBundle.putString("answer", answer);
+        inspectorTestProblemDrawSound.setArguments(newBundle);
+        inspectorTestProblemDrawSound.activity = this;
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+        if (testNumber == 0) {
+            fragmentTransaction.hide(firstFragment)
+                    .add(R.id.inpectorTestProblemList, inspectorTestProblemDrawSound);
+        } else if (currentFragment == 6) {
+            inspectorTestProblemDrawSound.onResume();
+        } else {
+            fragmentTransaction.replace(R.id.inpectorTestProblemList, inspectorTestProblemDrawSound);
+        }
+        currentFragment = 6;
+        fragmentTransaction.commit();
+    }
+    public void show_CDTProblem(int answer) {
+        //프래그먼트에 전달해줄 거 정해주기
+        Bundle newBundle = new Bundle();
+        newBundle.putInt("answer", answer);
+        inspectorTestProblemCDT.setArguments(newBundle);
+        inspectorTestProblemCDT.activity = this;
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+        if (testNumber == 0) {
+            fragmentTransaction.hide(firstFragment)
+                    .add(R.id.inpectorTestProblemList, inspectorTestProblemCDT);
+        } else if (currentFragment == 7) {
+            inspectorTestProblemCDT.onResume();
+        } else {
+            fragmentTransaction.replace(R.id.inpectorTestProblemList, inspectorTestProblemCDT);
+        }
+        currentFragment = 7;
         fragmentTransaction.commit();
     }
 

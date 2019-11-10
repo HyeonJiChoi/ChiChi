@@ -100,7 +100,6 @@ public class AllowCallPermission {
         Uri uContactsUri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
         phoneCursor = activity.getBaseContext().getContentResolver().query(uContactsUri, null, null, null, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
         AddressCount = phoneCursor.getCount();
-        System.out.println(AddressCount);
         int nameColumn = phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
         phoneCursor.moveToFirst();
         AddressNames.add(phoneCursor.getString(nameColumn));

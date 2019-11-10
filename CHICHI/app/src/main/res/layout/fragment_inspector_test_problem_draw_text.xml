@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/InspectorTestProblemDrawText"
+        android:textSize="50dp"
+        android:layout_width="250dp"
+        android:layout_height="130dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:background="@drawable/othershadow"/>
+    <org.dementia.chichi.DrawViewCanvas
+        android:id="@+id/InspectorTestProblemDrawTextCanvas"
+        android:layout_marginTop="15dp"
+        android:layout_width="360dp"
+        android:layout_height="220dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/InspectorTestProblemDrawText"/>
+    <ImageButton
+        android:id="@+id/InspectorTestProblemDrawTextButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignRight="@+id/InspectorTestProblemDrawTextCanvas"
+        android:layout_alignBottom="@+id/InspectorTestProblemDrawTextCanvas"
+        android:background="@drawable/drawpencilpicture"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/InspectorTestProblemDrawTextCanvas"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/gradient" />
+
+</RelativeLayout>

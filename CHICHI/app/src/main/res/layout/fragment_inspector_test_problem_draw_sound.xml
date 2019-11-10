@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/InspectorTestProblemDrawSoundRepeatButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="다시듣기"
+        android:background="@drawable/othershadow"
+        android:layout_centerHorizontal="true"
+        />
+    <org.dementia.chichi.DrawViewCanvas
+        android:id="@+id/InspectorTestProblemDrawSoundCanvas"
+        android:layout_marginTop="25dp"
+        android:layout_width="360dp"
+        android:layout_height="220dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/InspectorTestProblemDrawSoundRepeatButton"/>
+    <ImageButton
+        android:id="@+id/InspectorTestProblemDrawSoundButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignRight="@+id/InspectorTestProblemDrawSoundCanvas"
+        android:layout_alignBottom="@+id/InspectorTestProblemDrawSoundCanvas"
+        android:background="@drawable/drawpencilpicture"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/InspectorTestProblemDrawSoundCanvas"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/gradient" />
+
+</RelativeLayout>
