@@ -65,7 +65,6 @@ public class InspectorTestProblemCDT extends Fragment {
                     max_index[0] = max_index[1];
                     max_index[1] = tmp;
                 }
-                System.out.println(datas);
                 datas.remove(max_length);
                 float second_length = Collections.max(datas);
                 second_index[0] = (datas.indexOf(second_length) + 1) * 2;
@@ -95,23 +94,31 @@ public class InspectorTestProblemCDT extends Fragment {
                             int previous_answer = 11;
                             int after_answer = 1;
 
+                            //지금 정각의 이전 현재 이후 분침을 알아냄
                             Bundle previous = drawCDTCanvas.number_points.get(previous_answer);
                             Bundle current = drawCDTCanvas.number_points.get(sample_answer);
                             Bundle after = drawCDTCanvas.number_points.get(after_answer);
-                            float x_minutes_1 = (float) (previous.getDouble("X") - width / 2 + current.getDouble("X") - width / 2)/2;
-                            float x_minutes_2 = (float) (current.getDouble("X") - width / 2 + after.getDouble("X") - width / 2)/2;
-                            float y_minutes_1 = (float) ((previous.getDouble("Y")- height / 2 + current.getDouble("Y")- height / 2) / 2);
-                            float y_minutes_2 = (float) ((current.getDouble("Y")- height / 2 + after.getDouble("Y")- height / 2 )/ 2);
+                            float x_minutes_1 = (float) (previous.getDouble("X") - width / 2 + current.getDouble("X") - width / 2) / 2;
+                            float x_minutes_details_1 = x_minutes_1 / 2;
+                            float x_minutes_2 = (float) (current.getDouble("X") - width / 2 + after.getDouble("X") - width / 2) / 2;
+                            float x_minutes_details_2 = x_minutes_2 / 2;
+                            float y_minutes_1 = (float) ((previous.getDouble("Y") - height / 2 + current.getDouble("Y") - height / 2) / 2);
+                            float y_minutes_2 = (float) ((current.getDouble("Y") - height / 2 + after.getDouble("Y") - height / 2) / 2);
                             float minutes_a_1 = y_minutes_1 / x_minutes_1;
                             float minutes_a_2 = y_minutes_2 / x_minutes_2;
+                            float minutes_a_details_1 = y_minutes_1 / x_minutes_details_1;
+                            float minutes_a_details_2 = y_minutes_2 / x_minutes_details_2;
 
-                            float minutes_user_x = Float.parseFloat(moving_points.get(max_index[1]).get("X").toString())- width / 2;
-                            float minutes_user_y = Float.parseFloat(moving_points.get(max_index[1]).get("Y").toString())- height / 2;
+                            float minutes_user_x = Float.parseFloat(moving_points.get(max_index[1]).get("X").toString()) - width / 2;
+                            float minutes_user_y = Float.parseFloat(moving_points.get(max_index[1]).get("Y").toString()) - height / 2;
                             if (minutes_a_1 * minutes_user_x > minutes_user_y && minutes_a_2 * minutes_user_x > minutes_user_y) {
                                 activity.CDTscore++;
+                                if (minutes_a_details_1 * minutes_user_x > minutes_user_y && minutes_a_details_2 * minutes_user_x > minutes_user_y) {
+                                    activity.CDTscore++;
+                                }
                             }
 
-                            //초침
+                            //시침
                             sample_answer = answer;
                             previous_answer = sample_answer - 1;
                             after_answer = sample_answer + 1;
@@ -126,38 +133,53 @@ public class InspectorTestProblemCDT extends Fragment {
                             previous = drawCDTCanvas.number_points.get(previous_answer);
                             current = drawCDTCanvas.number_points.get(sample_answer);
                             after = drawCDTCanvas.number_points.get(after_answer);
-                            x_minutes_1 = (float) (previous.getDouble("X") - width / 2 + current.getDouble("X") - width / 2)/2;
-                            x_minutes_2 = (float) (current.getDouble("X") - width / 2 + after.getDouble("X") - width / 2)/2;
-                            y_minutes_1 = (float) ((previous.getDouble("Y")- height / 2 + current.getDouble("Y")- height / 2) / 2);
-                            y_minutes_2 = (float) ((current.getDouble("Y")- height / 2 + after.getDouble("Y")- height / 2 )/ 2);
+                            x_minutes_1 = (float) (previous.getDouble("X") - width / 2 + current.getDouble("X") - width / 2) / 2;
+                            x_minutes_details_1 = x_minutes_1 / 2;
+                            x_minutes_2 = (float) (current.getDouble("X") - width / 2 + after.getDouble("X") - width / 2) / 2;
+                            x_minutes_details_2 = x_minutes_2 / 2;
+                            y_minutes_1 = (float) ((previous.getDouble("Y") - height / 2 + current.getDouble("Y") - height / 2) / 2);
+                            y_minutes_2 = (float) ((current.getDouble("Y") - height / 2 + after.getDouble("Y") - height / 2) / 2);
                             minutes_a_1 = y_minutes_1 / x_minutes_1;
                             minutes_a_2 = y_minutes_2 / x_minutes_2;
+                            minutes_a_details_1 = y_minutes_1 / x_minutes_details_1;
+                            minutes_a_details_2 = y_minutes_2 / x_minutes_details_2;
 
-                            minutes_user_x = Float.parseFloat(moving_points.get(second_index[1]).get("X").toString())- width / 2;
-                            minutes_user_y = Float.parseFloat(moving_points.get(second_index[1]).get("Y").toString())- height / 2;
-                            if(sample_answer==0){
+                            minutes_user_x = Float.parseFloat(moving_points.get(second_index[1]).get("X").toString()) - width / 2;
+                            minutes_user_y = Float.parseFloat(moving_points.get(second_index[1]).get("Y").toString()) - height / 2;
+                            if (sample_answer == 0) {
                                 if (minutes_a_1 * minutes_user_x > minutes_user_y && minutes_a_2 * minutes_user_x > minutes_user_y) {
                                     activity.CDTscore++;
-                                }
-                            }if(sample_answer==6){
-                                if (minutes_a_1 * minutes_user_x < minutes_user_y && minutes_a_2 * minutes_user_x < minutes_user_y) {
-                                    activity.CDTscore++;
+                                    if (minutes_a_details_1 * minutes_user_x > minutes_user_y && minutes_a_details_2 * minutes_user_x > minutes_user_y) {
+                                        activity.CDTscore++;
+                                    }
                                 }
                             }
-                            else if (sample_answer > 0 && sample_answer < 6) {
+                            if (sample_answer == 6) {
+                                if (minutes_a_1 * minutes_user_x < minutes_user_y && minutes_a_2 * minutes_user_x < minutes_user_y) {
+                                    activity.CDTscore++;
+                                    if (minutes_a_details_1 * minutes_user_x < minutes_user_y && minutes_a_details_2 * minutes_user_x < minutes_user_y) {
+                                        activity.CDTscore++;
+                                    }
+                                }
+                            } else if (sample_answer > 0 && sample_answer < 6) {
                                 if (minutes_a_1 * minutes_user_x < minutes_user_y && minutes_a_2 * minutes_user_x > minutes_user_y) {
                                     activity.CDTscore++;
+                                    if (minutes_a_details_1 * minutes_user_x < minutes_user_y && minutes_a_details_2 * minutes_user_x > minutes_user_y) {
+                                        activity.CDTscore++;
+                                    }
                                 }
                             } else {
                                 if (minutes_a_1 * minutes_user_x > minutes_user_y && minutes_a_2 * minutes_user_x < minutes_user_y) {
                                     activity.CDTscore++;
+                                    if (minutes_a_details_1 * minutes_user_x > minutes_user_y && minutes_a_details_2 * minutes_user_x < minutes_user_y) {
+                                        activity.CDTscore++;
+                                    }
                                 }
                             }
-                            System.out.println(activity.CDTscore);
                         }
+                        System.out.println(activity.CDTscore);
                     }
                 }
-
             }
         });
         return view;
