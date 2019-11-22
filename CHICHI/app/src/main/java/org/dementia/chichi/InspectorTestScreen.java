@@ -453,6 +453,11 @@ public class InspectorTestScreen extends AppCompatActivity {
             }
             testNumber++;
         }
+        else{
+            Intent intent = new Intent(getApplicationContext(), InspectorTestLastScore.class);
+            intent.putExtra("score",score);
+            startActivity(intent);
+        }
     }
 
 

@@ -20,6 +20,7 @@ import java.util.Date;
 
 import static android.Manifest.permission.READ_CALL_LOG;
 import static android.Manifest.permission.READ_CONTACTS;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.RECORD_AUDIO;
 
 public class AllowCallPermission {
@@ -32,6 +33,7 @@ public class AllowCallPermission {
     private static final int PERMISSION_REQUEST_CODE = 200;
     private static final int PERMISSION_CONTENT_CODE = 100;
     private static final int PERMISSION_RECORD_AUDIO = 300;
+    private static final int PERMISSION_STORAGE_CODE = 400;
     public Activity activity;
 
     // permission 확인
@@ -45,6 +47,10 @@ public class AllowCallPermission {
     }
     public boolean checkPermissionRecordAudio() {
         int result = ContextCompat.checkSelfPermission(activity, RECORD_AUDIO);
+        return result == PackageManager.PERMISSION_GRANTED;
+    }
+    public boolean checkPermissionStorage() {
+        int result = ContextCompat.checkSelfPermission(activity, READ_EXTERNAL_STORAGE);
         return result == PackageManager.PERMISSION_GRANTED;
     }
 
@@ -63,6 +69,11 @@ public class AllowCallPermission {
         ActivityCompat.requestPermissions(activity,
                 new String[]{RECORD_AUDIO},
                 PERMISSION_RECORD_AUDIO);
+    }
+    public void requestPermissionStorage() {
+        ActivityCompat.requestPermissions(activity,
+                new String[]{READ_EXTERNAL_STORAGE},
+                PERMISSION_STORAGE_CODE);
     }
 
     // CallLog를 반환합니다.

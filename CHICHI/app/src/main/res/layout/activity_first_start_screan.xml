@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient"
+        android:id="@+id/test_backgroundView"
+        android:alpha = "0.7"
+        />
+    <ImageView
+        android:id="@+id/firstTitle"
+        android:src="@drawable/firsttitle"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+    <TextView
+        android:id="@+id/newText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="Hello! Welcome to CHICHI.\nHave a good day."
+        android:layout_below="@+id/firstTitle"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
+        />
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#E9C2C1"
+        android:text = "Start CHICHI"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/newText"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/nanumsquareaceb"/>
+</RelativeLayout>

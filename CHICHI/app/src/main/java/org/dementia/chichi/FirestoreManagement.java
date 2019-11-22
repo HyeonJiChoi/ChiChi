@@ -1,6 +1,7 @@
 package org.dementia.chichi;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -11,6 +12,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,22 +30,28 @@ public class FirestoreManagement {
 
     public FirestoreManagement() {
         db = FirebaseFirestore.getInstance();
-        read_user(MainActivity.name+"_"+MainActivity.password);
+        read_user(MainActivity.name + "_" + MainActivity.password);
         read_orientation_picture();
         read_users();
     }
 
-    public void add(String name, String password, int age, String home, String number) {
+    public void add(String name, String password, Map<String, Object> newUser) {
         // Create a new user with a first and last name
-        Map<String, Object> newUser = new HashMap<>();
-        newUser.put("age", age);
-        newUser.put("home", home);
-        newUser.put("number", number);
 
 // Add a new document with a generated ID
         db.collection("Inspector")
-                .document(name + password)
+                .document(name + "_" + password)
                 .set(newUser);
+    }
+    public void addScore(String day,int score,String name,  String password) {
+        // Create a new user with a first and last name
+        HashMap<String, Object> newScore = new HashMap<String, Object>();
+        newScore.put(day +"_day_score",score);
+
+// Add a new document with a generated ID
+        db.collection("Inspector")
+                .document(name + "_" + password)
+                .set(newScore);
     }
 
     public void read_user(String id) {
@@ -58,11 +66,14 @@ public class FirestoreManagement {
                             if (document.exists()) {
                                 user = document.getData();
                                 read_day_problems(user.get("day").toString());
+
                             } else {
                                 System.out.println("User_sorry1");
+                                read_day_problems("0");
                             }
                         } else {
                             System.out.println("User_sorry2");
+                            read_day_problems("0");
                         }
                     }
                 });

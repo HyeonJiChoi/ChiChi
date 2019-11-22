@@ -18,9 +18,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class InspectorTestProblemDrawSound extends Fragment {
     private TextToSpeech tts;
     String resultText = "";

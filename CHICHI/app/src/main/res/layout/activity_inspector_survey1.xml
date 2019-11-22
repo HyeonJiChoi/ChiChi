@@ -1,24 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/toobar_include"
+        layout="@layout/toolbar_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:id="@+id/backgroundView"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/toobar_include"
+        android:background="@drawable/gradient" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_below="@+id/backgroundView"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/dropshadow" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/InspectorSurveyProfile"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/initprofile" />
 
     <ScrollView
+        android:layout_below="@+id/backgroundView"
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="0dp"
         android:fillViewport="true"
         android:gravity="center"
         android:orientation="vertical">
 
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/gradient"
+            android:gravity="center"
             android:orientation="vertical">
+
 
             <TableLayout
                 android:id="@+id/inspectorSurveyTableLayout"
@@ -86,6 +113,28 @@
                 <TableRow android:paddingBottom="10dp">
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_gravity="left"
+                        android:text="검사자 분의 비밀번호를 정해주세요"
+                        android:textSize="17dp"
+                        android:textStyle="bold"></TextView>
+                </TableRow>
+
+                <TableRow android:paddingBottom="10dp">
+
+                    <EditText
+                        android:id="@+id/editTextPassword"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:hint="비밀번호을 입력하세요."
+                        android:textStyle="bold"></EditText>
+                </TableRow>
+
+
+                <TableRow android:paddingBottom="10dp">
+
+                    <TextView
                         android:id="@+id/textView3"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
@@ -124,7 +173,9 @@
                         android:hint="번호를 입력하세요."
                         android:textStyle="bold"></EditText>
                 </TableRow>
+
                 <TableRow android:paddingBottom="10dp">
+
                     <TextView
                         android:id="@+id/textView5"
                         android:layout_width="wrap_content"
@@ -134,6 +185,7 @@
                         android:textSize="17dp"
                         android:textStyle="bold" />
                 </TableRow>
+
                 <TableRow android:paddingBottom="10dp">
 
                     <EditText
@@ -157,11 +209,13 @@
                 </TableRow>
 
                 <TableRow android:paddingBottom="10dp">
-                <Spinner
-                    android:id="@+id/spinner2"
-                    android:layout_width="200dp"
-                    android:layout_height="40dp"></Spinner>
-                 </TableRow>
+
+                    <Spinner
+                        android:id="@+id/spinner2"
+                        android:layout_width="200dp"
+                        android:layout_height="40dp"></Spinner>
+                </TableRow>
+
                 <TableRow android:paddingBottom="10dp">
 
                     <TextView
@@ -173,6 +227,7 @@
                         android:textSize="17dp"
                         android:textStyle="bold" />
                 </TableRow>
+
                 <TableRow android:paddingBottom="10dp">
 
                     <EditText
@@ -184,17 +239,20 @@
                 </TableRow>
 
 
-                <Button
-                    android:id="@+id/next"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_below="@id/textView3"
-                    android:layout_gravity="right"
-                    android:text="다음"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+                <TableRow android:paddingBottom="10dp">
+
+                    <Button
+                        android:id="@+id/next"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_below="@id/textView3"
+                        android:layout_gravity="right"
+                        android:text="다음"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+                </TableRow>
             </TableLayout>
 
-        </RelativeLayout>
+        </LinearLayout>
     </ScrollView>
-</LinearLayout>
+</RelativeLayout>

@@ -80,7 +80,7 @@ public class DrawCDTCanvas extends View {
         width = getWidth();
         height = getHeight();
         setNumber_points();
-        paint.setStrokeWidth(20);
+        paint.setStrokeWidth(15);
         System.out.println(moving_points);
         canvas.drawPoint(getWidth() / 2, getHeight() / 2, paint);
         paint.setTextSize(40);
