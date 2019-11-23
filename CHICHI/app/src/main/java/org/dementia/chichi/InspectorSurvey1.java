@@ -1,8 +1,10 @@
 package org.dementia.chichi;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -120,6 +122,11 @@ public class InspectorSurvey1 extends AppCompatActivity {
                 temp.put("day", 0);
                 MainActivity.name = name;
                 MainActivity.password = password;
+                SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor autoLogin = auto.edit();
+                autoLogin.putString("inputName", name);
+                autoLogin.putString("inputPwd", password);
+                autoLogin.commit();
                 MainActivity.firestoreManagement.add(name,password,temp);
 
                 StorageReference riversRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://chichi-cef38.appspot.com")

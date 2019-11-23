@@ -24,12 +24,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/Inspecto_Last_Score_Graph"
-        android:text="오늘의 몇번째 테스트는"
+        android:text="마지막 테스트는 "
+        android:layout_marginLeft="40dp"
         android:fontFamily="@font/nanumsquareaceb"
         android:layout_below="@id/Inspecto_Last_Score_Graph"
         android:textSize="20dp"/>
     <TextView
-        android:id="@+id/scoreTextView"
+        android:id="@+id/LastScoreTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="몇점"
@@ -37,64 +38,60 @@
         android:layout_below="@id/Inspecto_Last_Score_Graph"
         android:layout_toRightOf="@+id/initialtext"
         android:textColor="#F56666"
-    android:textSize="20dp"/>
+        android:textSize="20dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="입니다."
+        android:text=" 입니다."
         android:fontFamily="@font/nanumsquareaceb"
-        android:layout_toRightOf="@+id/scoreTextView"
+        android:layout_toRightOf="@+id/LastScoreTextView"
         android:layout_below="@id/Inspecto_Last_Score_Graph"
         android:textSize="20dp"/>
     <TextView
-        android:id="@+id/nextTestTextView"
-        android:layout_alignLeft="@id/Inspecto_Last_Score_Graph"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="\n다음 테스트는 몇번째 테스트 입니다."
-        android:fontFamily="@font/nanumsquareaceb"
-        android:layout_below="@id/scoreTextView"
-        android:textSize="20dp"/>
-    <Button
-        android:id="@+id/newTestButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/noticeLastTest"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/nextTestTextView"
-        android:layout_marginTop="10dp"
-        android:text="다음 테스트 바로 보기"
-        />
-
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="\n검사가 종료 되었습니다."
+        android:fontFamily="@font/nanumsquareaceb"
+        android:layout_below="@id/LastScoreTextView"
+        android:textSize="20dp"/>
     <TextView
-        android:id="@+id/tmpTextView"
+        android:id="@+id/tmp"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="\n다음 테스트는 언제 볼까요?"
+        android:text="\n당신의 치매 검사 결과는"
         android:fontFamily="@font/nanumsquareaceb"
-        android:layout_below="@id/newTestButton"
+        android:layout_below="@id/noticeLastTest"
+        android:textSize="20dp"/>
+    <TextView
+        android:id="@+id/FinalScoreTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="무엇"
+        android:fontFamily="@font/nanumsquareaceb"
+        android:layout_below="@id/tmp"
+        android:textColor="#F56666"
+        android:textSize="20dp"/>
+    <TextView
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="으로 판정되었습니다."
+        android:fontFamily="@font/nanumsquareaceb"
+        android:layout_below="@id/FinalScoreTextView"
         android:textSize="20dp"/>
 
-    <TimePicker
-        android:id="@+id/timePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/tmpTextView"
-        android:timePickerMode="spinner"/>
     <Button
         android:id="@+id/nextTestDecideButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:text="결정하기"
+        android:text=""
         />
-
-
-
-
-
 
 </RelativeLayout>

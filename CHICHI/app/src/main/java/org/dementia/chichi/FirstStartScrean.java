@@ -24,6 +24,7 @@ public class FirstStartScrean extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ChooseInspectorGuardian.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

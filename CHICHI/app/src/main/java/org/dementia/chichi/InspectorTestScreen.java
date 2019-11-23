@@ -438,28 +438,54 @@ public class InspectorTestScreen extends AppCompatActivity {
                     fragmentProblemQuestionText.setText("이와 같은 퀴즈를\n본 적 있나요?");
                     fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
                     int day = Integer.parseInt(MainActivity.firestoreManagement.user.get("day").toString());
-                    if (day>0) answer = 0;
+                    if (day > 0) answer = 0;
                     else answer = 1;
                     show_2problem("O", "X", answer);
                     break;
                 case 16: //CDT
-                    int random_hour = (int)(Math.random()*10)%12+1;
+                    int random_hour = (int) (Math.random() * 10) % 12 + 1;
                     int minutes = 0;
-                    fragmentProblemQuestionText.setText(random_hour+"시 정각을 그려주세요");
+                    fragmentProblemQuestionText.setText(random_hour + "시 정각을 그려주세요");
                     fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
                     show_CDTProblem(random_hour);
                     break;
 
             }
             testNumber++;
+        } else {
+            int day = Integer.parseInt(MainActivity.firestoreManagement.user.get("day").toString());
+            if (day == 3) {
+                Intent intent = new Intent(getApplicationContext(), InspectorTestFinalScore.class);
+                intent.putExtra("totalScore", getTotalScore());
+                intent.putExtra("score", CDTscore);
+                startActivity(intent);
+            } else if(day == 2){
+                float TotalScore = getTotalScore();
+                if(TotalScore<24){
+                    Intent intent = new Intent(getApplicationContext(), InspectorTestFinalScore.class);
+                    intent.putExtra("totalScore", TotalScore);
+                    intent.putExtra("score", score);
+                    startActivity(intent);}
+                else{
+                    Intent intent = new Intent(getApplicationContext(), InspectorTestLastScore.class);
+                    intent.putExtra("score", score);
+                    startActivity(intent);
+                }
+                }else{
+                Intent intent = new Intent(getApplicationContext(), InspectorTestLastScore.class);
+                intent.putExtra("score", score);
+                startActivity(intent);
+            }
+            }
         }
-        else{
-            Intent intent = new Intent(getApplicationContext(), InspectorTestLastScore.class);
-            intent.putExtra("score",score);
-            startActivity(intent);
-        }
-    }
 
+    public float getTotalScore() {
+        float TotalScore = 0;
+        for (int i = 0; i < Integer.parseInt(user.get("day").toString()); i++)
+            TotalScore += Float.parseFloat(MainActivity.firestoreManagement.user.get(i + "_day_score").toString());
+
+        return TotalScore;
+    }
 
     public void show_3problem(String str1, String str2, String str3, int answer) {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -546,11 +572,12 @@ public class InspectorTestScreen extends AppCompatActivity {
         currentFragment = 3;
         fragmentTransaction.commit();
     }
+
     public void show_textSpeakProblem(int picture_number, String answer) {
         //프래그먼트에 전달해줄 거 정해주기
         Bundle newBundle = new Bundle();
         newBundle.putString("answer", answer);
-        newBundle.putInt("picture_number",picture_number);
+        newBundle.putInt("picture_number", picture_number);
         inspectorTestProblemPictureSpeak.setArguments(newBundle);
         inspectorTestProblemPictureSpeak.activity = this;
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -566,6 +593,7 @@ public class InspectorTestScreen extends AppCompatActivity {
         currentFragment = 4;
         fragmentTransaction.commit();
     }
+
     public void show_textWriteProblem(String answer) {
         //프래그먼트에 전달해줄 거 정해주기
         Bundle newBundle = new Bundle();
@@ -585,6 +613,7 @@ public class InspectorTestScreen extends AppCompatActivity {
         currentFragment = 5;
         fragmentTransaction.commit();
     }
+
     public void show_SoundWriteProblem(String answer) {
         //프래그먼트에 전달해줄 거 정해주기
         Bundle newBundle = new Bundle();
@@ -604,6 +633,7 @@ public class InspectorTestScreen extends AppCompatActivity {
         currentFragment = 6;
         fragmentTransaction.commit();
     }
+
     public void show_CDTProblem(int answer) {
         //프래그먼트에 전달해줄 거 정해주기
         Bundle newBundle = new Bundle();
@@ -638,7 +668,7 @@ public class InspectorTestScreen extends AppCompatActivity {
         return str_date;
     }
 
-    //날짜 구하는거
+    //시간 구하는거
     public String getTimeString() {
         SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss", Locale.KOREA);
         String str_time = df.format(new Date());

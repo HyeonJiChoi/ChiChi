@@ -43,15 +43,26 @@ public class FirestoreManagement {
                 .document(name + "_" + password)
                 .set(newUser);
     }
-    public void addScore(String day,int score,String name,  String password) {
+
+    public void addScore(int day, int score, String name, String password) {
         // Create a new user with a first and last name
-        HashMap<String, Object> newScore = new HashMap<String, Object>();
-        newScore.put(day +"_day_score",score);
+        user.put(day + "_day_score", score);
 
 // Add a new document with a generated ID
         db.collection("Inspector")
                 .document(name + "_" + password)
-                .set(newScore);
+                .set(user);
+    }
+
+    public void fixedDay(int day, String name, String password) {
+        // Create a new user with a first and last name
+        user.put("day", day);
+        System.out.println(user);
+// Add a new document with a generated ID
+        db.collection("Inspector")
+                .document(name + "_" + password)
+                .set(user);
+        read_day_problems(Integer.toString(day));
     }
 
     public void read_user(String id) {

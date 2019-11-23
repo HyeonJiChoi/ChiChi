@@ -21,7 +21,10 @@ import java.util.Date;
 import static android.Manifest.permission.READ_CALL_LOG;
 import static android.Manifest.permission.READ_CONTACTS;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.RECEIVE_BOOT_COMPLETED;
 import static android.Manifest.permission.RECORD_AUDIO;
+import static android.Manifest.permission.SET_ALARM;
+import static android.Manifest.permission.WAKE_LOCK;
 
 public class AllowCallPermission {
     public String callPerson;
