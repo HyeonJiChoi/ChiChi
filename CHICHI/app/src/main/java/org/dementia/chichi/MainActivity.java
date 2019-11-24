@@ -25,9 +25,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        name = "강아지";
-        password = "123456";
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
         //처음에는 SharedPreferences에 아무런 정보도 없으므로 값을 저장할 키들을 생성한다.
         // getString의 첫 번째 인자는 저장될 키, 두 번쨰 인자는 값입니다.
@@ -35,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
         String loginName = auto.getString("inputName", null);
         String loginPwd = auto.getString("inputPwd", null);
-        firestoreManagement = new FirestoreManagement();
         //MainActivity로 들어왔을 때 둘다 null이 아니면 값이 있다는 뜻 = 자동로그인
         if (loginName != null && loginPwd != null) {
             name = loginName;
@@ -54,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+        firestoreManagement = new FirestoreManagement();
     }
 
 }

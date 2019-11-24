@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -13,6 +14,7 @@ import org.eazegraph.lib.models.BarModel;
 
 public class InspectorTestFinalScore extends AppCompatActivity {
     int score;
+    Button endButton;
     BarChart graph;
     TextView scoreTextView, FinalScoreTextView;
     String[] Labels = new String[]{"첫번째", "두번째", "세번째", "추가테스트"};
@@ -30,10 +32,19 @@ public class InspectorTestFinalScore extends AppCompatActivity {
         day = Integer.parseInt(MainActivity.firestoreManagement.user.get("day").toString());
         scoreTextView = findViewById(R.id.LastScoreTextView);
         FinalScoreTextView = findViewById(R.id.FinalScoreTextView);
+        endButton = findViewById(R.id.FinalEndButton);
 
+        endButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         scoreTextView.setText(score + "점");
         setResultScore();
         setBarChart();
+        MainActivity.firestoreManagement.addScore(day,score,MainActivity.name,MainActivity.password);
+        MainActivity.firestoreManagement.fixedDay(4,MainActivity.name,MainActivity.password);
     }
 
     private void setResultScore() {

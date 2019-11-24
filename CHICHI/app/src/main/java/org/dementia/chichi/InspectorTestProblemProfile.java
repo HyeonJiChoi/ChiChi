@@ -15,6 +15,9 @@ import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -27,6 +30,7 @@ public class InspectorTestProblemProfile extends Fragment {
     CircleImageView TestProblemProfile1, TestProblemProfile2;
     Bundle newBundle;
     StorageReference riversRef;
+    Timer timer;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,6 +59,7 @@ public class InspectorTestProblemProfile extends Fragment {
                     activity.set_score(true);
                 }
                 activity.onChangeFragment();
+
             }
         });
 

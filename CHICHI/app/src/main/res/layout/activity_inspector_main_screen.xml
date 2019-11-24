@@ -137,9 +137,12 @@
                 android:layout_marginRight="10dp"
                 android:id="@+id/inspectorMainScreenTestButton"
                 android:layout_width="50dp"
-                android:layout_height="130dp"
+                android:layout_height="128dp"
                 android:gravity="center"
-                android:text="Goto Test"
+                android:text="검사보기"
+                android:background="#E9D3D3"
+                android:textSize="20dp"
+                android:fontFamily="@font/nanumsquareaceb"
                 android:layout_centerInParent="true" />
         </TableRow>
 

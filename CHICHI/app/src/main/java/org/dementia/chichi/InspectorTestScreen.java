@@ -28,7 +28,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class InspectorTestScreen extends AppCompatActivity {
+    private int[] problemCount = new int[]{10, 10, 10, 1};
     public int CDTscore = 0;
+    public int realCount = 0;
     AllowCallPermission allowCallPermission;
     public int testNumber = 0;
     int nextProblem = 0;
@@ -53,6 +55,7 @@ public class InspectorTestScreen extends AppCompatActivity {
     //음성인식을 위한 변수들
     Intent intent;
     SpeechRecognizer mRecognizer;
+    Timer timer = new Timer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +74,8 @@ public class InspectorTestScreen extends AppCompatActivity {
     }
 
     public void onChangeFragment() {
-        if (testNumber < problems.length) {
+        if (testNumber < problems.length && realCount < problemCount[Integer.parseInt(user.get("day").toString())]) {
+            timer.cancel();
             nextProblem = Integer.parseInt(problems[testNumber].toString());
             final int answer;
             String todayDate = getDateString();
@@ -80,7 +84,7 @@ public class InspectorTestScreen extends AppCompatActivity {
             switch (nextProblem) {
                 case 0: //지금 연도 월
                     fragmentProblemQuestionText.setText("지금 연도와 월은\n언제인가요?");
-                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(realCount + 1));
 
                     String[] Dates = new String[3];
 
@@ -103,7 +107,7 @@ public class InspectorTestScreen extends AppCompatActivity {
                     break;
                 case 1: //계절알기
                     fragmentProblemQuestionText.setText("지금 계절은 무엇인가요?");
-                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(realCount + 1));
 
                     answer = (int) (Math.random() * 10) % 2;
 
@@ -126,9 +130,10 @@ public class InspectorTestScreen extends AppCompatActivity {
 
                     break;
 
+                case 21:
                 case 2: // 기억 회상 (그림)
                     fragmentProblemQuestionText.setText("다음 그림을 보고\n무엇인지 맞춰주세요");
-                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(realCount + 1));
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     answer = (int) (Math.random() * 10) % 2;
                     //답의 위치를 랜덤으로 구하기
@@ -162,18 +167,18 @@ public class InspectorTestScreen extends AppCompatActivity {
                         }
                     }
 
-                    Timer timer = new Timer();
+                    Timer timertmp = new Timer();
                     TimerTask timerTask = new TimerTask() {
                         @Override
                         public void run() {
                             show_2problem(objects[0], objects[1], answer);
                         }
                     };
-                    timer.schedule(timerTask, 2000);
+                    timertmp.schedule(timerTask, 2000);
                     break;
                 case 3: //프로필사진 맞추기
                     fragmentProblemQuestionText.setText("누가 당신입니까?");
-                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(realCount + 1));
                     answer = (int) (Math.random() * 10) % 2;
                     String userId = MainActivity.name + "_" + MainActivity.password;
                     String otherId = MainActivity.firestoreManagement.userIds.get((int) (Math.random() * 10) % MainActivity.firestoreManagement.userIds.size()).toString();
@@ -194,7 +199,7 @@ public class InspectorTestScreen extends AppCompatActivity {
                     break;
                 case 4: //이름문제
                     fragmentProblemQuestionText.setText("당신의 이름은 무엇입니까?");
-                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(realCount + 1));
                     answer = (int) (Math.random() * 10) % 2;
                     String userName = MainActivity.name;
                     String otherName = MainActivity.firestoreManagement.userIds.get((int) (Math.random() * 10) % MainActivity.firestoreManagement.userIds.size()).split("_")[0];
@@ -215,7 +220,7 @@ public class InspectorTestScreen extends AppCompatActivity {
                     break;
                 case 5: //나이문제
                     fragmentProblemQuestionText.setText("당신의 나이는 몇입니까?");
-                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(realCount + 1));
                     answer = (int) (Math.random() * 10) % 3;
 
                     String[] ages = new String[3];
@@ -234,6 +239,11 @@ public class InspectorTestScreen extends AppCompatActivity {
 
                     show_3problem(ages[0], ages[1], ages[2], answer);
                     break;
+                case 61:
+                case 62:
+                case 63:
+                case 64:
+                case 65:
                 case 6: //계산문제
                     int num1 = (int) (Math.random() * 10) % 10 + 1;
                     int num2 = (int) (Math.random() * 10) % 10 + 1;
@@ -247,7 +257,7 @@ public class InspectorTestScreen extends AppCompatActivity {
 
                     int answer_number = Calculation(num1, num2, operation);
                     fragmentProblemQuestionText.setText(Integer.toString(num1) + " " + operation_return(operation) + " " + Integer.toString(num2) + " = ?");
-                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(realCount + 1));
                     answer = (int) (Math.random() * 10) % 3;
 
                     String[] calculateNumbers = new String[3];
@@ -267,7 +277,7 @@ public class InspectorTestScreen extends AppCompatActivity {
                     break;
                 case 7: //결혼여부
                     fragmentProblemQuestionText.setText("당신은 결혼 하셨습니까?");
-                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(realCount + 1));
                     String merried = MainActivity.firestoreManagement.user.get("married").toString();
                     if (merried.equals("true")) answer = 0;
                     else answer = 1;
@@ -275,7 +285,7 @@ public class InspectorTestScreen extends AppCompatActivity {
                     break;
                 case 8: //집주소 문제
                     fragmentProblemQuestionText.setText("당신의 집주소는 무엇입니까?");
-                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(realCount + 1));
 
                     answer = (int) (Math.random() * 10) % 3;
                     String address = MainActivity.firestoreManagement.user.get("home").toString();
@@ -299,7 +309,7 @@ public class InspectorTestScreen extends AppCompatActivity {
                     break;
                 case 9: //자녀수 문제
                     fragmentProblemQuestionText.setText("당신은 몇명의 \n자녀가 있습니까?");
-                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(realCount + 1));
 
                     if (MainActivity.firestoreManagement.user.containsKey("child")) {
                         answer = (int) (Math.random() * 10) % 3;
@@ -319,6 +329,9 @@ public class InspectorTestScreen extends AppCompatActivity {
                         }
 
                         show_3problem(child[0], child[1], child[2], answer);
+                    } else {
+                        testNumber++;
+                        onChangeFragment();
                     }
                     break;
                 case 10: //통화한 사람찾기
@@ -335,13 +348,14 @@ public class InspectorTestScreen extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     //만약 날짜가 같고 시간이 2시간 이하이면,
-                    if (getDateString().equals(allowCallPermission.callDate) && (subSec <= 7200) && allowCallPermission.didCall && allowCallPermission.callPerson != null) {
+                    if (getDateString().equals(allowCallPermission.callDate) && (subSec <= 7200) &&
+                            allowCallPermission.didCall && allowCallPermission.callPerson != null) {
                         answer = (int) (Math.random() * 10) % 3;
                         String[] callPerson = new String[3];
 
                         // 권한이 있으면 call log를 가지고 옵니다.
                         fragmentProblemQuestionText.setText("가장 최근 통화한 사람은\n누구 입니까?");
-                        fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                        fragmentProblemQuestionQNumber.setText(Integer.toString(realCount + 1));
                         allowCallPermission.getCallAddress();
 
 
@@ -359,6 +373,9 @@ public class InspectorTestScreen extends AppCompatActivity {
 
                         }
                         show_3problem(callPerson[0], callPerson[1], callPerson[2], answer);
+                    } else {
+                        testNumber++;
+                        onChangeFragment();
                     }
                     break;
                 case 11: //단어 말하기
@@ -377,7 +394,7 @@ public class InspectorTestScreen extends AppCompatActivity {
                     mRecognizer.setRecognitionListener(inspectorTestProblemTextSpeak.listener);
                     inspectorTestProblemTextSpeak.mRecognizer = mRecognizer;
                     fragmentProblemQuestionText.setText("다음 단어를 말해주세요");
-                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(realCount + 1));
                     show_textSpeakProblem(speak_answer);
 
                     try {
@@ -402,7 +419,7 @@ public class InspectorTestScreen extends AppCompatActivity {
                     mRecognizer.setRecognitionListener(inspectorTestProblemPictureSpeak.listener);
                     inspectorTestProblemPictureSpeak.mRecognizer = mRecognizer;
                     fragmentProblemQuestionText.setText("그림에 해당하는 \n단어를 말해주세요");
-                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(realCount + 1));
                     show_textSpeakProblem(picture_number, speak_picture_answer);
                     try {
                         mRecognizer.startListening(intent);
@@ -418,7 +435,7 @@ public class InspectorTestScreen extends AppCompatActivity {
                     inspectorTestProblemDrawText.activity = this;
 
                     fragmentProblemQuestionText.setText("다음 단어를 적어주세요");
-                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(realCount + 1));
                     show_textWriteProblem(write_answer);
 
                     break;
@@ -430,13 +447,13 @@ public class InspectorTestScreen extends AppCompatActivity {
                     inspectorTestProblemDrawSound.activity = this;
 
                     fragmentProblemQuestionText.setText("들리는 단어를 적어주세요");
-                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(realCount + 1));
                     show_SoundWriteProblem(listen_answer);
 
                     break;
                 case 15: //퀴즈 여부
                     fragmentProblemQuestionText.setText("이와 같은 퀴즈를\n본 적 있나요?");
-                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(realCount + 1));
                     int day = Integer.parseInt(MainActivity.firestoreManagement.user.get("day").toString());
                     if (day > 0) answer = 0;
                     else answer = 1;
@@ -446,44 +463,86 @@ public class InspectorTestScreen extends AppCompatActivity {
                     int random_hour = (int) (Math.random() * 10) % 12 + 1;
                     int minutes = 0;
                     fragmentProblemQuestionText.setText(random_hour + "시 정각을 그려주세요");
-                    fragmentProblemQuestionQNumber.setText(Integer.toString(testNumber + 1));
+                    fragmentProblemQuestionQNumber.setText(Integer.toString(realCount + 1));
                     show_CDTProblem(random_hour);
                     break;
 
             }
             testNumber++;
-        } else {
             int day = Integer.parseInt(MainActivity.firestoreManagement.user.get("day").toString());
             if (day == 3) {
+                timer = new Timer();
+                TimerTask timerTask = new TimerTask() {
+                    @Override
+                    public void run() {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                onChangeFragment();
+                            }
+                        });
+                    }
+                };
+                timer.schedule(timerTask, 100000);  //1분 딜레이를 주는 것
+            } else {
+                timer = new Timer();
+                TimerTask timerTask = new TimerTask() {
+                    @Override
+                    public void run() {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                onChangeFragment();
+                            }
+                        });
+                    }
+                };
+                timer.schedule(timerTask, 20000);  //20초 딜레이를 주는 것
+            }
+        } else {
+            int day = Integer.parseInt(MainActivity.firestoreManagement.user.get("day").toString());
+            if(day==4){
+                Intent intent = new Intent(getApplicationContext(), InspectorTestFinalLastScreen.class);
+                timer.cancel();
+                startActivity(intent);
+            }
+            else if (day == 3) {
                 Intent intent = new Intent(getApplicationContext(), InspectorTestFinalScore.class);
                 intent.putExtra("totalScore", getTotalScore());
                 intent.putExtra("score", CDTscore);
+                timer.cancel();
                 startActivity(intent);
-            } else if(day == 2){
+            } else if (day == 2) {
                 float TotalScore = getTotalScore();
-                if(TotalScore<24){
+                System.out.println(TotalScore);
+                if (TotalScore < 24) {
                     Intent intent = new Intent(getApplicationContext(), InspectorTestFinalScore.class);
                     intent.putExtra("totalScore", TotalScore);
                     intent.putExtra("score", score);
-                    startActivity(intent);}
-                else{
+                    timer.cancel();
+                    startActivity(intent);
+                } else {
                     Intent intent = new Intent(getApplicationContext(), InspectorTestLastScore.class);
                     intent.putExtra("score", score);
+                    timer.cancel();
                     startActivity(intent);
                 }
-                }else{
+            } else {
                 Intent intent = new Intent(getApplicationContext(), InspectorTestLastScore.class);
                 intent.putExtra("score", score);
+                timer.cancel();
                 startActivity(intent);
             }
-            }
+            finish();
         }
+    }
 
     public float getTotalScore() {
         float TotalScore = 0;
         for (int i = 0; i < Integer.parseInt(user.get("day").toString()); i++)
             TotalScore += Float.parseFloat(MainActivity.firestoreManagement.user.get(i + "_day_score").toString());
 
+        TotalScore += score;
         return TotalScore;
     }
 
@@ -507,6 +566,7 @@ public class InspectorTestScreen extends AppCompatActivity {
         }
         currentFragment = 0;
         fragmentTransaction.commit();
+        realCount++;
     }
 
     public void show_2problem(String str1, String str2, int answer) {
@@ -529,6 +589,7 @@ public class InspectorTestScreen extends AppCompatActivity {
         }
         currentFragment = 1;
         fragmentTransaction.commit();
+        realCount++;
     }
 
     public void show_profileProblem(String str1, String str2, int answer) {
@@ -551,6 +612,7 @@ public class InspectorTestScreen extends AppCompatActivity {
         }
         currentFragment = 2;
         fragmentTransaction.commit();
+        realCount++;
     }
 
     public void show_textSpeakProblem(String answer) {
@@ -571,6 +633,7 @@ public class InspectorTestScreen extends AppCompatActivity {
         }
         currentFragment = 3;
         fragmentTransaction.commit();
+        realCount++;
     }
 
     public void show_textSpeakProblem(int picture_number, String answer) {
@@ -592,6 +655,7 @@ public class InspectorTestScreen extends AppCompatActivity {
         }
         currentFragment = 4;
         fragmentTransaction.commit();
+        realCount++;
     }
 
     public void show_textWriteProblem(String answer) {
@@ -612,6 +676,7 @@ public class InspectorTestScreen extends AppCompatActivity {
         }
         currentFragment = 5;
         fragmentTransaction.commit();
+        realCount++;
     }
 
     public void show_SoundWriteProblem(String answer) {
@@ -632,6 +697,7 @@ public class InspectorTestScreen extends AppCompatActivity {
         }
         currentFragment = 6;
         fragmentTransaction.commit();
+        realCount++;
     }
 
     public void show_CDTProblem(int answer) {
@@ -652,6 +718,7 @@ public class InspectorTestScreen extends AppCompatActivity {
         }
         currentFragment = 7;
         fragmentTransaction.commit();
+        realCount++;
     }
 
     public void setActionbar() {

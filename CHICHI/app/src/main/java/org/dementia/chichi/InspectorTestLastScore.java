@@ -52,7 +52,7 @@ public class InspectorTestLastScore extends AppCompatActivity {
         DecideNextTest = findViewById(R.id.nextTestDecideButton);
         gotoNextTest = findViewById(R.id.newTestButton);
 
-        initialtext.setText("오늘의 "+Labels[day]+" 테스트는");
+        initialtext.setText("오늘의 "+Labels[day]+" 테스트는 ");
         scoreTextView.setText(score+"점");
         nextTestTextView.setText("\n다음 테스트는 "+Labels[day+1]+" 테스트 입니다.");
 

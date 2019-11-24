@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <org.eazegraph.lib.charts.BarChart
-        android:id="@+id/Inspecto_Last_Score_Graph"
+        android:id="@+id/Inspector_Final_Score_Graph"
         android:layout_width="300dp"
         android:layout_height="200dp"
         android:layout_marginLeft="10dp"
@@ -23,19 +23,19 @@
         android:id="@+id/initialtext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/Inspecto_Last_Score_Graph"
-        android:text="마지막 테스트는 "
-        android:layout_marginLeft="40dp"
+        android:layout_alignLeft="@+id/Inspector_Final_Score_Graph"
+        android:text="당신의 총 점은 "
+        android:layout_marginLeft="50dp"
         android:fontFamily="@font/nanumsquareaceb"
-        android:layout_below="@id/Inspecto_Last_Score_Graph"
+        android:layout_below="@id/Inspector_Final_Score_Graph"
         android:textSize="20dp"/>
     <TextView
-        android:id="@+id/LastScoreTextView"
+        android:id="@+id/FinalTotalScoreTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="몇점"
         android:fontFamily="@font/nanumsquareaceb"
-        android:layout_below="@id/Inspecto_Last_Score_Graph"
+        android:layout_below="@id/Inspector_Final_Score_Graph"
         android:layout_toRightOf="@+id/initialtext"
         android:textColor="#F56666"
         android:textSize="20dp"/>
@@ -45,8 +45,8 @@
         android:layout_centerHorizontal="true"
         android:text=" 입니다."
         android:fontFamily="@font/nanumsquareaceb"
-        android:layout_toRightOf="@+id/LastScoreTextView"
-        android:layout_below="@id/Inspecto_Last_Score_Graph"
+        android:layout_toRightOf="@+id/FinalTotalScoreTextView"
+        android:layout_below="@id/Inspector_Final_Score_Graph"
         android:textSize="20dp"/>
     <TextView
         android:id="@+id/noticeLastTest"
@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:text="\n검사가 종료 되었습니다."
         android:fontFamily="@font/nanumsquareaceb"
-        android:layout_below="@id/LastScoreTextView"
+        android:layout_below="@id/FinalTotalScoreTextView"
         android:textSize="20dp"/>
     <TextView
         android:id="@+id/tmp"
@@ -67,7 +67,7 @@
         android:layout_below="@id/noticeLastTest"
         android:textSize="20dp"/>
     <TextView
-        android:id="@+id/FinalScoreTextView"
+        android:id="@+id/FinalTotalResultTextView"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -82,17 +82,17 @@
         android:layout_height="wrap_content"
         android:text="으로 판정되었습니다."
         android:fontFamily="@font/nanumsquareaceb"
-        android:layout_below="@id/FinalScoreTextView"
+        android:layout_below="@id/FinalTotalResultTextView"
         android:textSize="20dp"/>
 
     <Button
-        android:id="@+id/FinalEndButton"
+        android:id="@+id/FinalLastEndButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:textSize="30dp"
         android:fontFamily="@font/nanumsquareaceb"
+        android:textSize="30dp"
         android:text="확인"
         />
 
