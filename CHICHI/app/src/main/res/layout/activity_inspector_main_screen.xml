@@ -121,6 +121,7 @@
         android:layout_height="150dp"
         android:background="@drawable/main_view_background"
         android:stretchColumns="1">
+
         <TableRow>
             <TextView
                 android:layout_marginTop="10dp"
@@ -148,11 +149,58 @@
 
     </TableLayout>
 
-    <View
-        android:layout_width="360dp"
-        android:layout_height="270dp"
-        android:layout_below="@+id/inspectorMainScreenView1"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/main_view_background" />
+
+        <TableLayout
+            android:layout_marginTop="15dp"
+            android:id="@+id/a"
+            android:layout_centerHorizontal="true"
+            android:layout_width="360dp"
+            android:layout_height="150dp"
+            android:background="@drawable/main_view_background"
+            android:stretchColumns="1"
+            android:layout_below="@+id/inspectorMainScreenView1"
+            >
+
+        <TableRow android:paddingBottom="10dp">
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="현재 위치"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+            <Button
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/locationButton"
+                android:layout_width="50dp"
+                android:layout_height="128dp"
+                android:gravity="center"
+                android:text="위치 얻기"
+                android:background="#E9D3D3"
+                android:textSize="20dp"
+                android:fontFamily="@font/nanumsquareaceb"
+                android:layout_centerInParent="true" />
+        </TableRow>
+
+
+        <TabelRow>
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/locationText"
+                android:text=""
+                android:textSize="20dp"
+                android:textStyle="bold"
+            ></TextView>
+        </TabelRow>
+
+</TableLayout>
 
 </RelativeLayout>
