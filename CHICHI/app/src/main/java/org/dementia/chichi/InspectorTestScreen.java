@@ -74,8 +74,8 @@ public class InspectorTestScreen extends AppCompatActivity {
     }
 
     public void onChangeFragment() {
+        timer.cancel();
         if (testNumber < problems.length && realCount < problemCount[Integer.parseInt(user.get("day").toString())]) {
-            timer.cancel();
             nextProblem = Integer.parseInt(problems[testNumber].toString());
             final int answer;
             String todayDate = getDateString();
@@ -376,6 +376,7 @@ public class InspectorTestScreen extends AppCompatActivity {
                     } else {
                         testNumber++;
                         onChangeFragment();
+                        timer.cancel();
                     }
                     break;
                 case 11: //단어 말하기
@@ -469,6 +470,7 @@ public class InspectorTestScreen extends AppCompatActivity {
 
             }
             testNumber++;
+            System.out.println("aaa");
             int day = Integer.parseInt(MainActivity.firestoreManagement.user.get("day").toString());
             if (day == 3) {
                 timer = new Timer();
@@ -503,34 +505,28 @@ public class InspectorTestScreen extends AppCompatActivity {
             int day = Integer.parseInt(MainActivity.firestoreManagement.user.get("day").toString());
             if(day==4){
                 Intent intent = new Intent(getApplicationContext(), InspectorTestFinalLastScreen.class);
-                timer.cancel();
                 startActivity(intent);
             }
             else if (day == 3) {
                 Intent intent = new Intent(getApplicationContext(), InspectorTestFinalScore.class);
                 intent.putExtra("totalScore", getTotalScore());
                 intent.putExtra("score", CDTscore);
-                timer.cancel();
                 startActivity(intent);
             } else if (day == 2) {
                 float TotalScore = getTotalScore();
-                System.out.println(TotalScore);
                 if (TotalScore < 24) {
                     Intent intent = new Intent(getApplicationContext(), InspectorTestFinalScore.class);
                     intent.putExtra("totalScore", TotalScore);
                     intent.putExtra("score", score);
-                    timer.cancel();
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(getApplicationContext(), InspectorTestLastScore.class);
                     intent.putExtra("score", score);
-                    timer.cancel();
                     startActivity(intent);
                 }
             } else {
                 Intent intent = new Intent(getApplicationContext(), InspectorTestLastScore.class);
                 intent.putExtra("score", score);
-                timer.cancel();
                 startActivity(intent);
             }
             finish();

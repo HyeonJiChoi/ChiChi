@@ -1,158 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="org.dementia.chichi.InspectorMainScreen">
+    android:fitsSystemWindows="true">
 
-    <include
-        android:id="@+id/toobar_include"
-        layout="@layout/toolbar_main"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:background="@drawable/gradient"
-        android:layout_below="@id/toobar_include"
-        android:id="@+id/backgroundView"
-        />
-    <View
-        android:layout_width="match_parent"
-        android:layout_marginLeft="5dp"
-        android:layout_height="10dp"
-        android:background="@drawable/dropshadow"
-        android:layout_below="@+id/backgroundView"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TableLayout
-        android:id="@+id/inspectorMainScreenTableLayout"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:background="#B3FFFFFF"
-        android:layout_below="@id/inspectorMainScreenProfile"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="-30dp"
-        android:paddingTop="40dp"
-        android:paddingBottom="20dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="18dp">
+        <include
+            android:id="@+id/toobar_include"
+            layout="@layout/toolbar_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-        <TableRow
-            android:paddingBottom="10dp">
+        <View
+            android:id="@+id/backgroundView"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_below="@id/toobar_include"
+            android:background="@drawable/gradient" />
 
-            <TextView
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="검사자 이름"
-                android:textSize="18dp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_below="@+id/backgroundView"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/dropshadow" />
 
-            <TextView
-                android:id="@+id/inspectorMainScreenTextViewName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.8"
-                android:text="~~~"
-                android:textSize="18dp" />
-        </TableRow>
-        <TableRow
-            android:paddingBottom="10dp">
+        <TableLayout
+            android:id="@+id/inspectorMainScreenTableLayout"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/inspectorMainScreenProfile"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-30dp"
+            android:background="#B3FFFFFF"
+            android:paddingLeft="20dp"
+            android:paddingTop="40dp"
+            android:paddingRight="18dp"
+            android:paddingBottom="20dp">
 
-            <TextView
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="검사자 집"
-                android:textSize="18dp"
-                android:layout_weight="1"/>
+            <TableRow android:paddingBottom="10dp">
 
-            <TextView
-                android:id="@+id/inspectorMainScreenTextViewHome"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="~~~"
-                android:textSize="18dp"
-                android:layout_weight="0.8"/>
-        </TableRow>
-        <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="검사자 이름"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="보호자 전화번호"
-                android:textSize="18dp"
-                android:layout_weight="1"/>
+                <TextView
+                    android:id="@+id/inspectorMainScreenTextViewName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:text="~~~"
+                    android:textSize="18dp" />
+            </TableRow>
 
-            <TextView
-                android:id="@+id/inspectorMainScreenTextViewNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="~~~"
-                android:textSize="18dp"
-                android:layout_weight="0.8"/>
-        </TableRow>
+            <TableRow android:paddingBottom="10dp">
 
-    </TableLayout>
-    <View
-        android:layout_below="@+id/inspectorMainScreenTableLayout"
-        android:layout_alignLeft="@+id/inspectorMainScreenTableLayout"
-        android:layout_width="345dp"
-        android:layout_marginLeft="5dp"
-        android:layout_height="7dp"
-        android:background="@drawable/dropshadow" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="검사자 집"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/inspectorMainScreenProfile"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
-        android:src="@drawable/initprofile" />
+                <TextView
+                    android:id="@+id/inspectorMainScreenTextViewHome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:text="~~~"
+                    android:textSize="18dp" />
+            </TableRow>
 
-    <TableLayout
-        android:layout_marginTop="15dp"
-        android:id="@+id/inspectorMainScreenView1"
-        android:layout_below="@+id/inspectorMainScreenTableLayout"
-        android:layout_centerHorizontal="true"
-        android:layout_width="360dp"
-        android:layout_height="150dp"
-        android:background="@drawable/main_view_background"
-        android:stretchColumns="1">
-        <TableRow>
-            <TextView
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Today"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-            <Button
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="10dp"
-                android:id="@+id/inspectorMainScreenTestButton"
-                android:layout_width="50dp"
-                android:layout_height="128dp"
-                android:gravity="center"
-                android:text="검사보기"
-                android:background="#E9D3D3"
-                android:textSize="20dp"
-                android:fontFamily="@font/nanumsquareaceb"
-                android:layout_centerInParent="true" />
-        </TableRow>
+            <TableRow>
 
-    </TableLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="보호자 전화번호"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
 
-    <View
-        android:layout_width="360dp"
-        android:layout_height="270dp"
-        android:layout_below="@+id/inspectorMainScreenView1"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/main_view_background" />
+                <TextView
+                    android:id="@+id/inspectorMainScreenTextViewNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:text="~~~"
+                    android:textSize="18dp" />
+            </TableRow>
 
-</RelativeLayout>
+        </TableLayout>
+
+        <View
+            android:layout_width="345dp"
+            android:layout_height="7dp"
+            android:layout_below="@+id/inspectorMainScreenTableLayout"
+            android:layout_alignLeft="@+id/inspectorMainScreenTableLayout"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/dropshadow" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/inspectorMainScreenProfile"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="70dp"
+            android:src="@drawable/initprofile" />
+
+        <TableLayout
+            android:id="@+id/inspectorMainScreenView1"
+            android:layout_width="360dp"
+            android:layout_height="150dp"
+            android:layout_below="@+id/inspectorMainScreenTableLayout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/main_view_background"
+            android:stretchColumns="1">
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Today"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/inspectorMainScreenTestButton"
+                    android:layout_width="50dp"
+                    android:layout_height="128dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#E9D3D3"
+                    android:fontFamily="@font/nanumsquareaceb"
+                    android:gravity="center"
+                    android:text="검사보기"
+                    android:textSize="20dp" />
+            </TableRow>
+
+        </TableLayout>
+
+        <View
+            android:layout_width="360dp"
+            android:layout_height="270dp"
+            android:layout_below="@+id/inspectorMainScreenView1"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/main_view_background" />
+
+    </RelativeLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigation_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/drawer_header"
+        app:menu="@menu/drawer" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

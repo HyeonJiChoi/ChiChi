@@ -3,23 +3,28 @@ package org.dementia.chichi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class InspectorMainScreen extends AppCompatActivity {
+public class InspectorMainScreen extends AppCompatActivity{
     private static final int PERMISSIONS_RECORD_AUDIO = 300;
     private static final int PERMISSION_REQUEST_CODE = 200;
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
@@ -29,12 +34,47 @@ public class InspectorMainScreen extends AppCompatActivity {
     TextView name, home, number;
     CircleImageView inspectorMainScreenProfile;
     StorageReference riversRef;
+    Toolbar tb;
+    private DrawerLayout mDrawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inspector_main_screen);
+        //액션바 설정
         setActionbar();
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                menuItem.setChecked(true);
+                mDrawerLayout.closeDrawers();
+
+                int id = menuItem.getItemId();
+                switch (id) {
+                    case R.id.navigation_item_score:
+                        //
+                        break;
+
+                    case R.id.navigation_item_location:
+                        //
+                        break;
+                    case R.id.navigation_item_edit:
+                        //
+                        break;
+
+                    case R.id.navigation_item_logout:
+                        //
+                        break;
+
+                }
+
+                return true;
+            }
+        });
+
         riversRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://chichi-cef38.appspot.com");
         testButton = findViewById(R.id.inspectorMainScreenTestButton);
         inspectorMainScreenProfile = findViewById(R.id.inspectorMainScreenProfile);
@@ -124,7 +164,26 @@ public class InspectorMainScreen extends AppCompatActivity {
     }
     public void setActionbar() {
         //layout을 가지고 와서 actionbar에 포팅을 시킵니다.
-        Toolbar tb = (Toolbar) findViewById(R.id.toolbar) ;
+        tb = (Toolbar) findViewById(R.id.toolbar) ;
         setSupportActionBar(tb) ;
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        switch (id) {
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
