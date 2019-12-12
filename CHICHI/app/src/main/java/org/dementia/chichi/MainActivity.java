@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "'" + name + "'" + "님 자동로그인 되었습니다.", Toast.LENGTH_SHORT).show();
                     finish();
                 }
-            }, 2000);
+            }, 2500);
         } else if (loginName == null && loginPwd == null) {   //아무것도 안 적혀있으면 최초화면 보여주기
             Intent intent = new Intent(getApplicationContext(), FirstStartScrean.class);
             startActivity(intent);

@@ -153,7 +153,7 @@
                     android:fontFamily="@font/nanumsquareaceb"
                     android:gravity="center"
                     android:text="검사보기"
-                    android:textSize="20dp" />
+                    android:textSize="35dp" />
             </TableRow>
 
         </TableLayout>
@@ -167,30 +167,31 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/main_view_background"
             android:stretchColumns="1">
-        <TableRow android:paddingBottom="10dp">
-            <TextView
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="230dp"
-                android:text="Now"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-            <Button
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="10dp"
-                android:id="@+id/locationButton"
-                android:layout_width="50dp"
-                android:layout_height="230dp"
-                android:gravity="center"
-                android:text="위치얻기"
-                android:background="#E9D3D3"
-                android:textSize="20dp"
-                android:fontFamily="@font/nanumsquareaceb"
-                android:layout_centerInParent="true" />
-        </TableRow>
+
+            <TableRow android:paddingBottom="10dp">
+
+                <TextView
+                    android:id="@+id/locationText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="30dp"
+                    android:text="Today"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow >
+                <Button
+                    android:id="@+id/locationButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#E9D3D3"
+                    android:fontFamily="@font/nanumsquareaceb"
+                    android:gravity="center"
+                    android:text="위치얻기"
+                    android:textSize="20dp" />
+            </TableRow>
         </TableLayout>
 
     </RelativeLayout>

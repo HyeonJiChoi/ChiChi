@@ -91,6 +91,7 @@ public class InspectorMainScreen extends AppCompatActivity implements LocationLi
 
                 return true;
             }
+
         });
 
         riversRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://chichi-cef38.appspot.com");
@@ -100,6 +101,7 @@ public class InspectorMainScreen extends AppCompatActivity implements LocationLi
         home = findViewById(R.id.inspectorMainScreenTextViewHome);
         number = findViewById(R.id.inspectorMainScreenTextViewNumber);
         locationButton = findViewById(R.id.locationButton);
+        locationText = findViewById(R.id.locationText);
         name.setText(MainActivity.name);
         home.setText(MainActivity.firestoreManagement.user.get("home").toString());
         number.setText(MainActivity.firestoreManagement.user.get("number").toString());
@@ -124,6 +126,26 @@ public class InspectorMainScreen extends AppCompatActivity implements LocationLi
                 getLocation();
             }
         });
+        allowCallPermission.activity = this;
+        if (!allowCallPermission.checkPermissionRecordAudio()) {
+            //권한을 허용하지 않는 경우
+            allowCallPermission.requestPermissionsRecordAudio();
+        } else if (!allowCallPermission.checkPermissionContent()) {
+            allowCallPermission.requestPermissionContent();
+        } else if (!allowCallPermission.checkPermissionCall()) {
+            //권한을 허용하지 않는 경우
+            allowCallPermission.requestPermissionCall();
+        } else if (!allowCallPermission.checkPermissionStorage()) {
+            //권한을 허용하지 않는 경우
+            allowCallPermission.requestPermissionStorage();
+        } else if(!allowCallPermission.checkPermissionLocation()) {
+            //권한을 허용하지 않는 경우
+            allowCallPermission.requestPermissionLocation();
+        }
+
+        //시작하자마자 location얻기!
+        getLocation();
+
     }
 
 
@@ -140,27 +162,28 @@ public class InspectorMainScreen extends AppCompatActivity implements LocationLi
 
     @Override
     public void onLocationChanged(Location location) {
-        locationText.setText("Latitude: " + location.getLatitude() + "\n Longitude: " + location.getLongitude());
 
         try {
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-            locationText.setText(locationText.getText() + "\n"+addresses.get(0).getAddressLine(0));
+            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 2);
 
             String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
             String city = addresses.get(0).getLocality();
             String state = addresses.get(0).getAdminArea();
+            String Thoroughfare = addresses.get(0).getThoroughfare();
+            String subLocality = addresses.get(0).getSubLocality();
             String country = addresses.get(0).getCountryName();
             String postalCode = addresses.get(0).getPostalCode();
             String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
 
-            Log.i(TAG, "Address: "+address + "\n" + "City: "+city + "\n"+"State: " +state+ "\n"+ "Country: "+country+"\n"+ "Postal code: "+postalCode);
+            locationText.setText(addresses.get(1).getAddressLine(0));
+            System.out.println(addresses.get(1).getAddressLine(0));
+            System.out.println( "Address: "+address + "\n" + "City: "+city + "\n"+"State: " +state+ "\n"+ "Country: "+country+"\n"+ "Postal code: "+postalCode);
 
         }catch(Exception e)
         {
-
+            System.out.println(e);
         }
-
     }
 
     @Override
@@ -218,6 +241,10 @@ public class InspectorMainScreen extends AppCompatActivity implements LocationLi
                 if (grantResults.length > 0) {
                     boolean callLogAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     if (callLogAccepted) {
+                        if (!allowCallPermission.checkPermissionLocation()) {
+                            //권한을 허용하지 않는 경우
+                            allowCallPermission.requestPermissionLocation();
+                        }
                     } else finish();
                 }
                 break;
@@ -226,10 +253,6 @@ public class InspectorMainScreen extends AppCompatActivity implements LocationLi
                 if(grantResults.length>0){
                     boolean callLogAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     if (callLogAccepted) {
-                        if (!allowCallPermission.checkPermissionLocation()) {
-                            //권한을 허용하지 않는 경우
-                            allowCallPermission.requestPermissionLocation();
-                        }
                     } else finish();
                 }
                 break;

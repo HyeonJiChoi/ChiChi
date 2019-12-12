@@ -76,6 +76,7 @@ public class FirestoreManagement {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
                                 user = document.getData();
+                                System.out.println("UserComplete");
                                 read_day_problems(user.get("day").toString());
 
                             } else {
