@@ -18,6 +18,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.READ_CALL_LOG;
 import static android.Manifest.permission.READ_CONTACTS;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
@@ -37,6 +38,7 @@ public class AllowCallPermission {
     private static final int PERMISSION_CONTENT_CODE = 100;
     private static final int PERMISSION_RECORD_AUDIO = 300;
     private static final int PERMISSION_STORAGE_CODE = 400;
+    private static final int PERMISSION_LOCATION_CODE = 500;
     public Activity activity;
 
     // permission 확인
@@ -54,6 +56,11 @@ public class AllowCallPermission {
     }
     public boolean checkPermissionStorage() {
         int result = ContextCompat.checkSelfPermission(activity, READ_EXTERNAL_STORAGE);
+        return result == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public boolean checkPermissionLocation(){
+        int result = ContextCompat.checkSelfPermission(activity,ACCESS_FINE_LOCATION);
         return result == PackageManager.PERMISSION_GRANTED;
     }
 
@@ -79,6 +86,11 @@ public class AllowCallPermission {
                 PERMISSION_STORAGE_CODE);
     }
 
+    public void requestPermissionLocation() {
+        ActivityCompat.requestPermissions(activity,
+                new String[]{ACCESS_FINE_LOCATION},
+                PERMISSION_LOCATION_CODE);
+    }
     // CallLog를 반환합니다.
     public void setCallLog() {
         Cursor managedCursor = activity.getBaseContext().getContentResolver().query(CallLog.Calls.CONTENT_URI,
