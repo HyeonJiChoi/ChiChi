@@ -172,28 +172,24 @@
 
                 <TextView
                     android:id="@+id/locationText"
-                    android:layout_width="wrap_content"
+                    android:layout_width="338dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="30dp"
+                    android:gravity="center"
                     android:text="Today"
                     android:textSize="20dp"
                     android:textStyle="bold" />
             </TableRow>
-
-            <TableRow >
-                <Button
-                    android:id="@+id/locationButton"
+            <TableRow>
+                <fragment
+                    android:id="@+id/map"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#E9D3D3"
-                    android:fontFamily="@font/nanumsquareaceb"
-                    android:gravity="center"
-                    android:text="위치얻기"
-                    android:textSize="20dp" />
+                    android:layout_marginLeft="8dp"></fragment>
             </TableRow>
         </TableLayout>
-
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView

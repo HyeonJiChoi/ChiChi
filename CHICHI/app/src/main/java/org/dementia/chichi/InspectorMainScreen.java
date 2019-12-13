@@ -25,6 +25,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -35,7 +43,7 @@ import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class InspectorMainScreen extends AppCompatActivity implements LocationListener {
+public class InspectorMainScreen extends AppCompatActivity implements LocationListener, OnMapReadyCallback {
     private static final int PERMISSIONS_RECORD_AUDIO = 300;
     private static final int PERMISSION_REQUEST_CODE = 200;
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
@@ -48,10 +56,10 @@ public class InspectorMainScreen extends AppCompatActivity implements LocationLi
     StorageReference riversRef;
     Toolbar tb;
     private DrawerLayout mDrawerLayout;
-
-    Button locationButton;
     TextView locationText;
     LocationManager locationManager;
+    GoogleMap mMap;
+    List<Address> addresses;
 
 
     @Override
@@ -99,7 +107,6 @@ public class InspectorMainScreen extends AppCompatActivity implements LocationLi
         name = findViewById(R.id.inspectorMainScreenTextViewName);
         home = findViewById(R.id.inspectorMainScreenTextViewHome);
         number = findViewById(R.id.inspectorMainScreenTextViewNumber);
-        locationButton = findViewById(R.id.locationButton);
         locationText = findViewById(R.id.locationText);
         name.setText(MainActivity.name);
         home.setText(MainActivity.firestoreManagement.user.get("home").toString());
@@ -116,13 +123,6 @@ public class InspectorMainScreen extends AppCompatActivity implements LocationLi
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), InspectorTestScreen.class);
                 startActivity(intent);
-            }
-        });
-
-        locationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getLocation();
             }
         });
         allowCallPermission.activity = this;
@@ -164,7 +164,7 @@ public class InspectorMainScreen extends AppCompatActivity implements LocationLi
 
         try {
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 2);
+            addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 2);
 
             String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
             String city = addresses.get(0).getLocality();
@@ -175,10 +175,12 @@ public class InspectorMainScreen extends AppCompatActivity implements LocationLi
             String postalCode = addresses.get(0).getPostalCode();
             String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
 
-            locationText.setText(state + " "+city +" "+Thoroughfare+" "+subLocality);
+            locationText.setText(state + " "+city +" "+Thoroughfare);
             System.out.println(state + " "+city +" "+Thoroughfare+" "+subLocality);
             System.out.println( "Address: "+address + "\n" + "City: "+city + "\n"+"State: " +state+ "\n"+ "Country: "+country+"\n"+ "Postal code: "+postalCode);
 
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
         }catch(Exception e)
         {
             System.out.println(e);
@@ -280,5 +282,35 @@ public class InspectorMainScreen extends AppCompatActivity implements LocationLi
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        //지도타입 - 일반
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        oneMarker();
+        // manyMarker();
+    }
+    //마커하나찍는 기본 예제
+    public void oneMarker() {
+        LatLng seoul = new LatLng(addresses.get(0).getLatitude(), addresses.get(0).getLongitude());
+
+        // 구글 맵에 표시할 마커에 대한 옵션 설정  (알파는 좌표의 투명도이다.)
+        MarkerOptions makerOptions = new MarkerOptions();
+        makerOptions
+                .position(seoul)
+                .title("보호자 위치")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+                .alpha(0.5f);
+
+        // 마커를 생성한다. showInfoWindow를 쓰면 처음부터 마커에 상세정보가 뜨게한다. (안쓰면 마커눌러야뜸)
+        mMap.addMarker(makerOptions); //.showInfoWindow();
+
+
+        //카메라를 여의도 위치로 옮긴다.
+        // mMap.moveCamera(CameraUpdateFactory.newLatLng(seoul));
+        //처음 줌 레벨 설정 (해당좌표=>서울, 줌레벨(16)을 매개변수로 넣으면 된다.) (위에 코드대신 사용가능)(중첩되면 이걸 우선시하는듯)
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(seoul, 16));
     }
 }
