@@ -126,6 +126,7 @@ public class InspectorSurvey1 extends AppCompatActivity {
                 SharedPreferences.Editor autoLogin = auto.edit();
                 autoLogin.putString("inputName", name);
                 autoLogin.putString("inputPwd", password);
+                autoLogin.putString("Character", "inspector");
                 autoLogin.commit();
                 MainActivity.firestoreManagement.add(name,password,temp);
 

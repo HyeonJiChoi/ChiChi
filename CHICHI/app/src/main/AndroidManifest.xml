@@ -21,7 +21,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".InspectorTestFinalLastScreen"></activity>
+        <activity android:name=".gaurdianLoginScreen"></activity>
+        <activity android:name=".GaurdianMainScreen" />
+        <activity android:name=".InspectorTestFinalLastScreen" />
         <activity android:name=".InspectorTestFinalScore" />
         <activity android:name=".ChooseInspectorGuardian" />
         <activity android:name=".FirstStartScrean" />

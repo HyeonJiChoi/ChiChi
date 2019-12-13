@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient"
+        android:id="@+id/test_backgroundView"
+        android:alpha = "0.7"
+        />
+    <ImageView
+        android:src="@drawable/title_icon"
+        android:layout_width="50dp"
+        android:layout_marginBottom="10dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/nametextviewtmp"/>
+    <TextView
+        android:id="@+id/nametextviewtmp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="검사자성함 :"
+        android:textColor="#FFFFFF"
+        android:layout_above="@+id/passwordtextviewtmp"
+        android:textSize="30dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="20dp"
+        android:fontFamily="@font/nanumsquareaceb"
+        android:layout_marginTop="10dp"/>
+    <TextView
+        android:id="@+id/passwordtextviewtmp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="비밀번호    :"
+        android:textColor="#FFFFFF"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"
+        android:textSize="30dp"
+        android:fontFamily="@font/nanumsquareaceb"/>
+   <EditText
+       android:id="@+id/guardianLoginName"
+       android:layout_width="200dp"
+       android:layout_height="50dp"
+       android:layout_alignTop="@+id/nametextviewtmp"
+       android:layout_toRightOf="@+id/nametextviewtmp"
+       android:background="#ffffff"
+       android:fontFamily="@font/nanumsquareaceb"/>
+    <EditText
+        android:layout_marginTop="10dp"
+        android:id="@+id/guardianLoginPassword"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/guardianLoginName"
+        android:layout_alignLeft="@+id/guardianLoginName"
+        android:background="#ffffff"
+        android:fontFamily="@font/nanumsquareaceb"/>
+    <Button
+        android:id="@+id/guardianLoginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#E6DCDB"
+        android:text = "LOGIN"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/guardianLoginPassword"
+        android:layout_alignRight="@+id/guardianLoginPassword"
+        android:textSize="30dp"
+        android:fontFamily="@font/nanumsquareaceb"/>
+</RelativeLayout>

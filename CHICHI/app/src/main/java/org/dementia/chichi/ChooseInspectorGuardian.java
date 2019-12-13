@@ -21,17 +21,17 @@ public class ChooseInspectorGuardian extends AppCompatActivity {
         inpectorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.inpectorGuardian = 0;
                 Intent intent = new Intent(getApplicationContext(), InspectorSurvey1.class);
                 startActivity(intent);
+                finish();
             }
         });
         GuardianButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.inpectorGuardian = 1;
-                Intent intent = new Intent(getApplicationContext(), ChooseInspectorGuardian.class);
+                Intent intent = new Intent(getApplicationContext(), gaurdianLoginScreen.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

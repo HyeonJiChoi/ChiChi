@@ -41,7 +41,6 @@ public class InspectorMainScreen extends AppCompatActivity implements LocationLi
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
     private static final int PERMISSION_STORAGE_CODE = 400;
     private static final int PERMISSION_LOCATION_CODE = 500;
-    private static final String TAG = "InspectorMainScreen";
     AllowCallPermission allowCallPermission = new AllowCallPermission();
     Button testButton;
     TextView name, home, number;
@@ -176,8 +175,8 @@ public class InspectorMainScreen extends AppCompatActivity implements LocationLi
             String postalCode = addresses.get(0).getPostalCode();
             String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
 
-            locationText.setText(addresses.get(1).getAddressLine(0));
-            System.out.println(addresses.get(1).getAddressLine(0));
+            locationText.setText(state + " "+city +" "+Thoroughfare+" "+subLocality);
+            System.out.println(state + " "+city +" "+Thoroughfare+" "+subLocality);
             System.out.println( "Address: "+address + "\n" + "City: "+city + "\n"+"State: " +state+ "\n"+ "Country: "+country+"\n"+ "Postal code: "+postalCode);
 
         }catch(Exception e)
