@@ -110,6 +110,7 @@ public class InspectorTestLastScore extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), InspectorTestScreen.class);
                 startActivity(intent);
+                finish();
             }
         });
 
