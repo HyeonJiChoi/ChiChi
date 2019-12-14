@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                         finish();
                     }
                 }
-            }, 2500);
+            }, 3000);
         } else if (loginName == null && loginPwd == null) {   //아무것도 안 적혀있으면 최초화면 보여주기
             Intent intent = new Intent(getApplicationContext(), FirstStartScrean.class);
             startActivity(intent);
