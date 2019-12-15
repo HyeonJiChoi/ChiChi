@@ -175,7 +175,7 @@ public class InspectorMainScreen extends AppCompatActivity implements LocationLi
             String postalCode = addresses.get(0).getPostalCode();
             String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
 
-            locationText.setText(state + " "+city +" "+Thoroughfare);
+            locationText.setText(address);
             System.out.println(state + " "+city +" "+Thoroughfare+" "+subLocality);
             System.out.println( "Address: "+address + "\n" + "City: "+city + "\n"+"State: " +state+ "\n"+ "Country: "+country+"\n"+ "Postal code: "+postalCode);
 
