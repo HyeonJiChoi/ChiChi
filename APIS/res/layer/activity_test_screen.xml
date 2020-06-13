@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/test_toolbar_include"
+        layout="@layout/toolbar_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/gradient"
+        android:layout_below="@id/test_toolbar_include"
+        android:id="@+id/test_backgroundView"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_height="10dp"
+        android:background="@drawable/dropshadow"
+        android:layout_below="@+id/test_backgroundView"/>
+    <include
+        android:id="@+id/inpectorTestProblemQuestion"
+        layout="@layout/fragment_inspector_test_problem_question"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/test_toolbar_include"/>
+    <FrameLayout
+        android:id="@+id/inpectorTestProblemList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/inpectorTestProblemQuestion">
+        <fragment
+            android:id="@+id/inpectorTestProblemList_first"
+            android:name="org.dementia.cdt_application.InspectorBlankFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true" />
+    </FrameLayout>
+
+</RelativeLayout>

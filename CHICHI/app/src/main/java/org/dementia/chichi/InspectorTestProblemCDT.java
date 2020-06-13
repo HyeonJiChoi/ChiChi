@@ -112,9 +112,9 @@ public class InspectorTestProblemCDT extends Fragment {
 
                                 float minutes_user_x = Float.parseFloat(moving_points.get(max_index[1]).get("X").toString()) - width / 2;
                                 float minutes_user_y = Float.parseFloat(moving_points.get(max_index[1]).get("Y").toString()) - height / 2;
-                                if (minutes_a_1 * minutes_user_x > minutes_user_y && minutes_a_2 * minutes_user_x > minutes_user_y) {
+                                if (minutes_a_1 * minutes_user_x < minutes_user_y && minutes_a_2 * minutes_user_x < minutes_user_y) {
                                     activity.CDTscore++;
-                                    if (minutes_a_details_1 * minutes_user_x > minutes_user_y && minutes_a_details_2 * minutes_user_x > minutes_user_y) {
+                                    if (minutes_a_details_1 * minutes_user_x < minutes_user_y && minutes_a_details_2 * minutes_user_x < minutes_user_y) {
                                         activity.CDTscore++;
                                     }
                                 }
@@ -148,31 +148,31 @@ public class InspectorTestProblemCDT extends Fragment {
                                 minutes_user_x = Float.parseFloat(moving_points.get(second_index[1]).get("X").toString()) - width / 2;
                                 minutes_user_y = Float.parseFloat(moving_points.get(second_index[1]).get("Y").toString()) - height / 2;
                                 if (sample_answer == 0) {
-                                    if (minutes_a_1 * minutes_user_x > minutes_user_y && minutes_a_2 * minutes_user_x > minutes_user_y) {
-                                        activity.CDTscore++;
-                                        if (minutes_a_details_1 * minutes_user_x > minutes_user_y && minutes_a_details_2 * minutes_user_x > minutes_user_y) {
-                                            activity.CDTscore++;
-                                        }
-                                    }
-                                }
-                                if (sample_answer == 6) {
                                     if (minutes_a_1 * minutes_user_x < minutes_user_y && minutes_a_2 * minutes_user_x < minutes_user_y) {
                                         activity.CDTscore++;
                                         if (minutes_a_details_1 * minutes_user_x < minutes_user_y && minutes_a_details_2 * minutes_user_x < minutes_user_y) {
                                             activity.CDTscore++;
                                         }
                                     }
-                                } else if (sample_answer > 0 && sample_answer < 6) {
-                                    if (minutes_a_1 * minutes_user_x < minutes_user_y && minutes_a_2 * minutes_user_x > minutes_user_y) {
+                                }
+                                if (sample_answer == 6) {
+                                    if (minutes_a_1 * minutes_user_x > minutes_user_y && minutes_a_2 * minutes_user_x > minutes_user_y) {
                                         activity.CDTscore++;
-                                        if (minutes_a_details_1 * minutes_user_x < minutes_user_y && minutes_a_details_2 * minutes_user_x > minutes_user_y) {
+                                        if (minutes_a_details_1 * minutes_user_x > minutes_user_y && minutes_a_details_2 * minutes_user_x > minutes_user_y) {
+                                            activity.CDTscore++;
+                                        }
+                                    }
+                                } else if (sample_answer > 0 && sample_answer < 6) {
+                                    if (minutes_a_1 * minutes_user_x > minutes_user_y && minutes_a_2 * minutes_user_x < minutes_user_y) {
+                                        activity.CDTscore++;
+                                        if (minutes_a_details_1 * minutes_user_x > minutes_user_y && minutes_a_details_2 * minutes_user_x < minutes_user_y) {
                                             activity.CDTscore++;
                                         }
                                     }
                                 } else {
-                                    if (minutes_a_1 * minutes_user_x > minutes_user_y && minutes_a_2 * minutes_user_x < minutes_user_y) {
+                                    if (minutes_a_1 * minutes_user_x < minutes_user_y && minutes_a_2 * minutes_user_x > minutes_user_y) {
                                         activity.CDTscore++;
-                                        if (minutes_a_details_1 * minutes_user_x > minutes_user_y && minutes_a_details_2 * minutes_user_x < minutes_user_y) {
+                                        if (minutes_a_details_1 * minutes_user_x < minutes_user_y && minutes_a_details_2 * minutes_user_x > minutes_user_y) {
                                             activity.CDTscore++;
                                         }
                                     }

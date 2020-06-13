@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/TestProblemListbig1"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/select_button"
+        android:gravity="center"
+        android:text="Hello"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="55dp"
+        android:stateListAnimator="@null"/>
+
+    <Button
+        android:id="@+id/TestProblemListbig2"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/select_button"
+        android:gravity="center"
+        android:text="Hello"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/TestProblemListbig1"
+        android:stateListAnimator="@null"/>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:src="@drawable/smallquiz1"
+        android:layout_alignLeft="@+id/TestProblemListbig1"
+        android:layout_marginLeft="20dp"
+        android:stateListAnimator="@null"/>
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:src="@drawable/smallquiz2"
+        android:layout_alignLeft="@+id/TestProblemListbig2"
+        android:layout_marginLeft="20dp"/>
+
+</RelativeLayout>
