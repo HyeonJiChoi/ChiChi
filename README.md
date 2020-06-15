@@ -111,4 +111,9 @@ If you want to get score when click button, do it.
             }
         });
 ```
+## 4. CDT Algorithm
+![image](https://user-images.githubusercontent.com/44078732/84652063-f10d3400-af45-11ea-9bce-f3d31397d147.png)
 
+- In the CDT implementation, if the problem is to draw the 12 o'clock hour, +2 points if there are 2 lines.
+- If the length of the minute hand is greater than total/4 in all parts, +1 point.
+- When entering the light gray area, the second and minute are each +1 point. When entering the red area, which is the dark gray area, +1 point is added.
